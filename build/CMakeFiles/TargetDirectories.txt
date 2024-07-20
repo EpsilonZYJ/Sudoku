@@ -1,0 +1,5 @@
+D:/HUSTWorkfield/Sudoku/build/CMakeFiles/Sudoku.dir
+D:/HUSTWorkfield/Sudoku/build/CMakeFiles/ALL_BUILD.dir
+D:/HUSTWorkfield/Sudoku/build/CMakeFiles/ZERO_CHECK.dir
+D:/HUSTWorkfield/Sudoku/build/SAT/CMakeFiles/SAT.dir
+D:/HUSTWorkfield/Sudoku/build/X_Sudoku/CMakeFiles/X_Sudoku.dir
