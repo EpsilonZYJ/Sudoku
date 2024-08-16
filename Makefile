@@ -8,7 +8,7 @@ configure:
 
 .PHONY: run
 run:
-	./build/Sudoku
+	./build/Debug/Sudoku.exe
 
 .PHONY: clean
 clean:
