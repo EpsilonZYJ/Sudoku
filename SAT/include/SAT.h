@@ -5,9 +5,9 @@
 #include <time.h>
 #include <stdlib.h>
 
-//typedef struct{
-//
-//};
+typedef struct{
+
+};
 
 void ReadCNFFile(FILE* fopen);
 
