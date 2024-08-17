@@ -5,6 +5,6 @@
 int main() {
     test1();
     test2();
-    printf("-----test-----");
+    printf("-----test-----\n");
     return 0;
 }
