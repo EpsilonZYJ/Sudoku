@@ -15,3 +15,4 @@ add_subdirectory(SAT)
 add_subdirectory(X_Sudoku)
 
 add_executable(Sudoku main.cpp)
+target_link_libraries(Sudoku SAT X_Sudoku)

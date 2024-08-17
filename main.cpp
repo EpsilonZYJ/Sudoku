@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "SAT/SAT.cpp"
-#include "X_Sudoku/X_Sudoku.cpp"
+#include "SAT/include/SAT.h"
+#include "X_Sudoku/include/X_Sudoku.h"
 
 int main() {
     test1();

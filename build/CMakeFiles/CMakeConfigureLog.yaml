@@ -24,7 +24,7 @@ events:
       The output was:
       0
       閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.10.4+10fbfbf2e
-      鐢熸垚鍚姩鏃堕棿涓?2024/8/16 20:16:22銆?
+      鐢熸垚鍚姩鏃堕棿涓?2024/8/17 23:30:48銆?
       
       鑺傜偣 1 涓婄殑椤圭洰鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\3.30.0\\CompilerIdC\\CompilerIdC.vcxproj鈥?榛樿鐩爣)銆?
       PrepareForBuild:
@@ -53,7 +53,7 @@ events:
           0 涓鍛?
           0 涓敊璇?
       
-      宸茬敤鏃堕棿 00:00:03.24
+      宸茬敤鏃堕棿 00:00:01.65
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -79,7 +79,7 @@ events:
       The output was:
       0
       閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.10.4+10fbfbf2e
-      鐢熸垚鍚姩鏃堕棿涓?2024/8/16 20:16:27銆?
+      鐢熸垚鍚姩鏃堕棿涓?2024/8/17 23:30:51銆?
       
       鑺傜偣 1 涓婄殑椤圭洰鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\3.30.0\\CompilerIdCXX\\CompilerIdCXX.vcxproj鈥?榛樿鐩爣)銆?
       PrepareForBuild:
@@ -108,7 +108,7 @@ events:
           0 涓鍛?
           0 涓敊璇?
       
-      宸茬敤鏃堕棿 00:00:03.25
+      宸茬敤鏃堕棿 00:00:01.93
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -127,8 +127,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-0zkxfp"
-      binary: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-0zkxfp"
+      source: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-t88u4y"
+      binary: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-t88u4y"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -137,40 +137,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-0zkxfp'
+        Change Dir: 'D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-t88u4y'
         
-        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6cc70.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_44d2d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.10.4+10fbfbf2e
-        鐢熸垚鍚姩鏃堕棿涓?2024/8/16 20:16:32銆?
+        鐢熸垚鍚姩鏃堕棿涓?2024/8/17 23:30:53銆?
         
-        鑺傜偣 1 涓婄殑椤圭洰鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0zkxfp\\cmTC_6cc70.vcxproj鈥?榛樿鐩爣)銆?
+        鑺傜偣 1 涓婄殑椤圭洰鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t88u4y\\cmTC_44d2d.vcxproj鈥?榛樿鐩爣)銆?
         PrepareForBuild:
-          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_6cc70.dir\\Debug\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_44d2d.dir\\Debug\\鈥濄€?
           宸插惎鐢ㄧ粨鏋勫寲杈撳嚭銆傜紪璇戝櫒璇婃柇鐨勬牸寮忚缃皢鍙嶆槧閿欒灞傛缁撴瀯銆傛湁鍏宠缁嗕俊鎭紝璇峰弬闃?https://aka.ms/cpp/structured-output銆?
-          姝ｅ湪鍒涘缓鐩綍鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0zkxfp\\Debug\\鈥濄€?
-          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_6cc70.dir\\Debug\\cmTC_6cc70.tlog\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t88u4y\\Debug\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_44d2d.dir\\Debug\\cmTC_44d2d.tlog\\鈥濄€?
         InitializeBuildStatus:
-          姝ｅ湪鍒涘缓鈥渃mTC_6cc70.dir\\Debug\\cmTC_6cc70.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
-          姝ｅ湪瀵光€渃mTC_6cc70.dir\\Debug\\cmTC_6cc70.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
+          姝ｅ湪鍒涘缓鈥渃mTC_44d2d.dir\\Debug\\cmTC_44d2d.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
+          姝ｅ湪瀵光€渃mTC_44d2d.dir\\Debug\\cmTC_44d2d.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
         ClCompile:
-          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6cc70.dir\\Debug\\\\" /Fd"cmTC_6cc70.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_44d2d.dir\\Debug\\\\" /Fd"cmTC_44d2d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
           鐢ㄤ簬 x64 鐨?Microsoft (R) C/C++ 浼樺寲缂栬瘧鍣?19.40.33812 鐗?
           鐗堟潈鎵€鏈?C) Microsoft Corporation銆備繚鐣欐墍鏈夋潈鍒┿€?
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6cc70.dir\\Debug\\\\" /Fd"cmTC_6cc70.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_44d2d.dir\\Debug\\\\" /Fd"cmTC_44d2d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0zkxfp\\Debug\\cmTC_6cc70.exe" /INCREMENTAL /ILK:"cmTC_6cc70.dir\\Debug\\cmTC_6cc70.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-0zkxfp/Debug/cmTC_6cc70.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-0zkxfp/Debug/cmTC_6cc70.lib" /MACHINE:X64  /machine:x64 cmTC_6cc70.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_6cc70.vcxproj -> D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0zkxfp\\Debug\\cmTC_6cc70.exe
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t88u4y\\Debug\\cmTC_44d2d.exe" /INCREMENTAL /ILK:"cmTC_44d2d.dir\\Debug\\cmTC_44d2d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-t88u4y/Debug/cmTC_44d2d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-t88u4y/Debug/cmTC_44d2d.lib" /MACHINE:X64  /machine:x64 cmTC_44d2d.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_44d2d.vcxproj -> D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t88u4y\\Debug\\cmTC_44d2d.exe
         FinalizeBuildStatus:
-          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_6cc70.dir\\Debug\\cmTC_6cc70.tlog\\unsuccessfulbuild鈥濄€?
-          姝ｅ湪瀵光€渃mTC_6cc70.dir\\Debug\\cmTC_6cc70.tlog\\cmTC_6cc70.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
-        宸插畬鎴愮敓鎴愰」鐩€淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0zkxfp\\cmTC_6cc70.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
+          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_44d2d.dir\\Debug\\cmTC_44d2d.tlog\\unsuccessfulbuild鈥濄€?
+          姝ｅ湪瀵光€渃mTC_44d2d.dir\\Debug\\cmTC_44d2d.tlog\\cmTC_44d2d.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
+        宸插畬鎴愮敓鎴愰」鐩€淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t88u4y\\cmTC_44d2d.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
         
         宸叉垚鍔熺敓鎴愩€?
             0 涓鍛?
             0 涓敊璇?
         
-        宸茬敤鏃堕棿 00:00:03.05
+        宸茬敤鏃堕棿 00:00:01.43
         
       exitCode: 0
   -
@@ -210,8 +210,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-3ruujp"
-      binary: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-3ruujp"
+      source: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-zrssd4"
+      binary: "D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-zrssd4"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "-Wall"
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -221,46 +221,46 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-3ruujp'
+        Change Dir: 'D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-zrssd4'
         
-        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d190c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3aab8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.10.4+10fbfbf2e
-        鐢熸垚鍚姩鏃堕棿涓?2024/8/16 20:16:37銆?
+        鐢熸垚鍚姩鏃堕棿涓?2024/8/17 23:30:55銆?
         
-        鑺傜偣 1 涓婄殑椤圭洰鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\cmTC_d190c.vcxproj鈥?榛樿鐩爣)銆?
+        鑺傜偣 1 涓婄殑椤圭洰鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\cmTC_3aab8.vcxproj鈥?榛樿鐩爣)銆?
         PrepareForBuild:
-          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_d190c.dir\\Debug\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_3aab8.dir\\Debug\\鈥濄€?
           宸插惎鐢ㄧ粨鏋勫寲杈撳嚭銆傜紪璇戝櫒璇婃柇鐨勬牸寮忚缃皢鍙嶆槧閿欒灞傛缁撴瀯銆傛湁鍏宠缁嗕俊鎭紝璇峰弬闃?https://aka.ms/cpp/structured-output銆?
-          姝ｅ湪鍒涘缓鐩綍鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\Debug\\鈥濄€?
-          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_d190c.dir\\Debug\\cmTC_d190c.tlog\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\Debug\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_3aab8.dir\\Debug\\cmTC_3aab8.tlog\\鈥濄€?
         InitializeBuildStatus:
-          姝ｅ湪鍒涘缓鈥渃mTC_d190c.dir\\Debug\\cmTC_d190c.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
-          姝ｅ湪瀵光€渃mTC_d190c.dir\\Debug\\cmTC_d190c.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
+          姝ｅ湪鍒涘缓鈥渃mTC_3aab8.dir\\Debug\\cmTC_3aab8.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
+          姝ｅ湪瀵光€渃mTC_3aab8.dir\\Debug\\cmTC_3aab8.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
         ClCompile:
-          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\CL.exe /c /Zi /Wall /WX- /diagnostics:column /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d190c.dir\\Debug\\\\" /Fd"cmTC_d190c.dir\\Debug\\vc143.pdb" /external:W4 /Gd /TP /errorReport:queue  -g "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\CL.exe /c /Zi /Wall /WX- /diagnostics:column /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3aab8.dir\\Debug\\\\" /Fd"cmTC_3aab8.dir\\Debug\\vc143.pdb" /external:W4 /Gd /TP /errorReport:queue  -g "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
           鐢ㄤ簬 x64 鐨?Microsoft (R) C/C++ 浼樺寲缂栬瘧鍣?19.40.33812 鐗?
           鐗堟潈鎵€鏈?C) Microsoft Corporation銆備繚鐣欐墍鏈夋潈鍒┿€?
-          cl /c /Zi /Wall /WX- /diagnostics:column /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d190c.dir\\Debug\\\\" /Fd"cmTC_d190c.dir\\Debug\\vc143.pdb" /external:W4 /Gd /TP /errorReport:queue  -g "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
-        cl : 鍛戒护琛? warning D9002: 蹇界暐鏈煡閫夐」鈥?g鈥?[D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\cmTC_d190c.vcxproj]
+          cl /c /Zi /Wall /WX- /diagnostics:column /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3aab8.dir\\Debug\\\\" /Fd"cmTC_3aab8.dir\\Debug\\vc143.pdb" /external:W4 /Gd /TP /errorReport:queue  -g "E:\\ProgrammeFiles\\CMake\\share\\cmake-3.30\\Modules\\CMakeCXXCompilerABI.cpp"
+        cl : 鍛戒护琛? warning D9002: 蹇界暐鏈煡閫夐」鈥?g鈥?[D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\cmTC_3aab8.vcxproj]
           CMakeCXXCompilerABI.cpp
         Link:
-          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\Debug\\cmTC_d190c.exe" /INCREMENTAL /ILK:"cmTC_d190c.dir\\Debug\\cmTC_d190c.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-3ruujp/Debug/cmTC_d190c.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-3ruujp/Debug/cmTC_d190c.lib" /MACHINE:X64  /machine:x64 cmTC_d190c.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_d190c.vcxproj -> D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\Debug\\cmTC_d190c.exe
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\Debug\\cmTC_3aab8.exe" /INCREMENTAL /ILK:"cmTC_3aab8.dir\\Debug\\cmTC_3aab8.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-zrssd4/Debug/cmTC_3aab8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/HUSTWorkfield/Sudoku/build/CMakeFiles/CMakeScratch/TryCompile-zrssd4/Debug/cmTC_3aab8.lib" /MACHINE:X64  /machine:x64 cmTC_3aab8.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_3aab8.vcxproj -> D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\Debug\\cmTC_3aab8.exe
         FinalizeBuildStatus:
-          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_d190c.dir\\Debug\\cmTC_d190c.tlog\\unsuccessfulbuild鈥濄€?
-          姝ｅ湪瀵光€渃mTC_d190c.dir\\Debug\\cmTC_d190c.tlog\\cmTC_d190c.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
-        宸插畬鎴愮敓鎴愰」鐩€淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\cmTC_d190c.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
+          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_3aab8.dir\\Debug\\cmTC_3aab8.tlog\\unsuccessfulbuild鈥濄€?
+          姝ｅ湪瀵光€渃mTC_3aab8.dir\\Debug\\cmTC_3aab8.tlog\\cmTC_3aab8.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
+        宸插畬鎴愮敓鎴愰」鐩€淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\cmTC_3aab8.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
         
         宸叉垚鍔熺敓鎴愩€?
         
-        鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\cmTC_d190c.vcxproj鈥?榛樿鐩爣) (1) ->
+        鈥淒:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\cmTC_3aab8.vcxproj鈥?榛樿鐩爣) (1) ->
         (ClCompile 鐩爣) -> 
-          cl : 鍛戒护琛? warning D9002: 蹇界暐鏈煡閫夐」鈥?g鈥?[D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3ruujp\\cmTC_d190c.vcxproj]
+          cl : 鍛戒护琛? warning D9002: 蹇界暐鏈煡閫夐」鈥?g鈥?[D:\\HUSTWorkfield\\Sudoku\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zrssd4\\cmTC_3aab8.vcxproj]
         
             1 涓鍛?
             0 涓敊璇?
         
-        宸茬敤鏃堕棿 00:00:03.42
+        宸茬敤鏃堕棿 00:00:01.45
         
       exitCode: 0
   -

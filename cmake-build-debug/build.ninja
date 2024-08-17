@@ -47,11 +47,12 @@ cmake_ninja_workdir = D$:/HUSTWorkfield/Sudoku/cmake-build-debug/
 #############################################
 # Order-only phony target for Sudoku
 
-build cmake_object_order_depends_target_Sudoku: phony || CMakeFiles/Sudoku.dir
+build cmake_object_order_depends_target_Sudoku: phony || cmake_object_order_depends_target_SAT cmake_object_order_depends_target_X_Sudoku
 
 build CMakeFiles/Sudoku.dir/main.cpp.obj: CXX_COMPILER__Sudoku_Debug D$:/HUSTWorkfield/Sudoku/main.cpp || cmake_object_order_depends_target_Sudoku
   DEP_FILE = CMakeFiles\Sudoku.dir\main.cpp.obj.d
   FLAGS = -Wall -g -fdiagnostics-color=always -std=gnu++20
+  INCLUDES = -ID:/HUSTWorkfield/Sudoku/SAT/include -ID:/HUSTWorkfield/Sudoku/X_Sudoku/include
   OBJECT_DIR = CMakeFiles\Sudoku.dir
   OBJECT_FILE_DIR = CMakeFiles\Sudoku.dir
 
@@ -63,9 +64,9 @@ build CMakeFiles/Sudoku.dir/main.cpp.obj: CXX_COMPILER__Sudoku_Debug D$:/HUSTWor
 #############################################
 # Link the executable Sudoku.exe
 
-build Sudoku.exe: CXX_EXECUTABLE_LINKER__Sudoku_Debug CMakeFiles/Sudoku.dir/main.cpp.obj
+build Sudoku.exe: CXX_EXECUTABLE_LINKER__Sudoku_Debug CMakeFiles/Sudoku.dir/main.cpp.obj | SAT/libSAT.a X_Sudoku/libX_Sudoku.a || SAT/libSAT.a X_Sudoku/libX_Sudoku.a
   FLAGS = -Wall -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = SAT/libSAT.a  X_Sudoku/libX_Sudoku.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Sudoku.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
