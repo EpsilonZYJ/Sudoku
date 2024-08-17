@@ -5,9 +5,10 @@
 #include <time.h>
 #include <stdlib.h>
 
-typedef struct{
-
-};
+typedef struct literal{
+    int data;
+    struct literal* next;
+}literal, *pliteral;
 
 void ReadCNFFile(FILE* fopen);
 
