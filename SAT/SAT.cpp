@@ -38,12 +38,32 @@ void ReadCNFFile(FILE* fin){
     }
 }
 
-void createClause(){
-
+Clause* createClause(Literal* &head){
+    Clause* clause = (Clause *) malloc(sizeof(Clause));
+    clause->firstLiteral = head;
+    return clause;
 }
 
-void destroyClause(){
-
+void destroyClause(Formular& formular, Clause* &clause){
+    pLiteral p = clause->firstLiteral;
+    while(clause->firstLiteral){
+        clause->firstLiteral = p->next;
+        free(p);
+    }
+    Clause *cls_free = formular.root;
+    if(formular.root == clause){
+        formular.root = cls_free->nextClause;
+        free(cls_free);
+        cls_free = NULL;
+    }else{
+        while(cls_free->nextClause && cls_free->nextClause != clause)
+            cls_free = cls_free->nextClause;
+        Clause *s = cls_free->nextClause;
+        cls_free->nextClause = s->nextClause;
+        free(s);
+        s = NULL;
+    }
+    formular.numClause --;
 }
 
 void addClause(){

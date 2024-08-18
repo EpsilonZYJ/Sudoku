@@ -32,8 +32,8 @@ typedef struct Formular{
 
 void ReadCNFFile(FILE* fin);
 
-void createClause();
-void destroyClause();
+Clause* createClause(Literal* &head);
+void destroyClause(Formular& formular, Clause* &clause);
 void addClause();
 void removeClause();
 void isUnitClause();
