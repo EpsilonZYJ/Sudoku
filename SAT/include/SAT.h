@@ -5,11 +5,16 @@
 #include <time.h>
 #include <stdlib.h>
 
-typedef struct literal{
+typedef struct Literal{
     int data;
     bool is_negative;
-    struct literal* next;
+    struct Literal* next;
 }Literal, *pLiteral;
+
+typedef struct Clause{
+
+}Clause;
+
 
 void ReadCNFFile(FILE* fopen);
 
