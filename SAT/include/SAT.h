@@ -7,8 +7,9 @@
 
 typedef struct literal{
     int data;
+    bool is_negative;
     struct literal* next;
-}literal, *pliteral;
+}Literal, *pLiteral;
 
 void ReadCNFFile(FILE* fopen);
 
