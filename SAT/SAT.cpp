@@ -1,15 +1,17 @@
 #include "include/SAT.h"
 
+#define ABS(x) ((x) >= 0 ? (x) : -(x))
+
 /*
  * 读取cnf文件并且存储为相应的数据结构
  */
-void ReadCNFFile(FILE* fopen){
+void ReadCNFFile(FILE* fin){
     char *buf = (char *) malloc(sizeof(char) * 200);
 
     //处理注释说明行
-    fgets(buf, 199, fopen);
+    fgets(buf, 199, fin);
     while(*buf != 'p')
-        fgets(buf, 199, fopen);
+        fgets(buf, 199, fin);
 
     //统计布尔变元个数和子句个数
     unsigned int literals = 0;
@@ -30,7 +32,7 @@ void ReadCNFFile(FILE* fopen){
     //读取布尔变元并进行存储
     for(unsigned int i = 0; i < lines; i ++){
         int x;
-        while(fscanf(fopen, "%d", &x) && x != 0){
+        while(fscanf(fin, "%d", &x) && x != 0){
 
         }
     }

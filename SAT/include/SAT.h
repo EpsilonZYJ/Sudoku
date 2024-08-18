@@ -1,3 +1,9 @@
+/*
+ * File: SAT.h
+ * Created by Yujie Zhou
+ * date: 2024-8-18
+ */
+
 #pragma once
 #ifndef SUDOKU_SAT_H
 #define SUDOKU_SAT_H
@@ -5,18 +11,26 @@
 #include <time.h>
 #include <stdlib.h>
 
+//文字的存储结构
 typedef struct Literal{
     int data;
     bool is_negative;
     struct Literal* next;
 }Literal, *pLiteral;
 
+
 typedef struct Clause{
+    struct Clause* nextClause;
+    Literal* firstLiteral;
+}Clause, *pClause;
 
-}Clause;
+typedef struct Formular{
+    pClause root;
+    int numClause;
+    int numBoolen;
+}Formular;
 
-
-void ReadCNFFile(FILE* fopen);
+void ReadCNFFile(FILE* fin);
 
 void createClause();
 void destroyClause();
