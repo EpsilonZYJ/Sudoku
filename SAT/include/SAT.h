@@ -7,6 +7,9 @@
 #pragma once
 #ifndef SUDOKU_SAT_H
 #define SUDOKU_SAT_H
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -34,8 +37,7 @@ void ReadCNFFile(FILE* fin);
 
 Clause* createClause(Literal* &head);
 void destroyClause(Formular& formular, Clause* &clause);
-void addClause();
-void removeClause();
+void addClause(Clause* &pre_clause, Clause* &insert_clause);
 void isUnitClause();
 void evaluateClause();
 
