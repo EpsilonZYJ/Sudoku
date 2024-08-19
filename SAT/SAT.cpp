@@ -66,7 +66,7 @@ void destroyClause(Formular& formular, Clause* &clause){
     formular.numClause --;
 }
 
-void addClause(){
+void addClause(Clause* &pre_clause, Clause* &insert_clause){
 
 }
 
