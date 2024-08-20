@@ -56,12 +56,18 @@ void ReadCNFFile(FILE* fin, Formular& formular){
     }
 }
 
+/*
+ * 创建子句
+ */
 Clause* createClause(Literal* &head){
     Clause* clause = (Clause *) malloc(sizeof(Clause));
     clause->firstLiteral = head;
     return clause;
 }
 
+/*
+ * 销毁子句
+ */
 void destroyClause(Formular& formular, Clause* &clause){
     pLiteral p = clause->firstLiteral;
     while(clause->firstLiteral){
@@ -84,19 +90,27 @@ void destroyClause(Formular& formular, Clause* &clause){
     formular.numClause --;
 }
 
+/*
+ * 向pre_clause子句后插入insert_clause子句
+ */
 void addClause(Clause* &pre_clause, Clause* &insert_clause){
     Clause *p = pre_clause->nextClause;
     pre_clause->nextClause = insert_clause;
     insert_clause->nextClause = p;
 }
 
-
-
-void isUnitClause(){
-
+/*
+ * 判断子句是否为单子句
+ */
+inline bool isUnitClause(Clause* clause){
+    return clause->firstLiteral->next == NULL;
 }
 
 void evaluateClause(){
+
+}
+
+void DPLL(Formular& formular){
 
 }
 

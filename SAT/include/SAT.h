@@ -38,9 +38,10 @@ void ReadCNFFile(FILE* fin);
 Clause* createClause(Literal* &head);
 void destroyClause(Formular& formular, Clause* &clause);
 void addClause(Clause* &pre_clause, Clause* &insert_clause);
-void isUnitClause();
+inline bool isUnitClause(Clause* clause);
 void evaluateClause();
 
 void test1();
+void DPLL(Formular& formular);
 
 #endif //SUDOKU_SAT_H
