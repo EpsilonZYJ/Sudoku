@@ -1,5 +1,5 @@
 /*
- * File: SAT.h
+ * SAT.h
  * Created by Yujie Zhou
  * date: 2024-8-18
  */
