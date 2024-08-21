@@ -14,6 +14,10 @@
 #include <time.h>
 #include <stdlib.h>
 
+#define POSITIVE 1
+#define NEGATIVE 0
+#define UNKNOWN -1
+
 //文字的存储结构
 typedef struct Literal{
     int data;
@@ -33,6 +37,12 @@ typedef struct Formular{
     int numBoolen;
 }Formular;
 
+typedef struct Answer{
+    int numBoolen;
+    bool solved;
+    char* state;
+};
+
 void ReadCNFFile(FILE* fin);
 
 Clause* createClause(Literal* &head);
@@ -42,6 +52,7 @@ inline bool isUnitClause(Clause* clause);
 void evaluateClause();
 
 void test1();
-void DPLL(Formular& formular);
+void DPLL(Formular& formular, Answer& ans);
+Answer DPLLSolution(Formular& formular);
 
 #endif //SUDOKU_SAT_H

@@ -115,10 +115,20 @@ void evaluateClause(){
 
 }
 
-void DPLL(Formular& formular){
+void DPLL(Formular& formular, Answer& ans){
 
 }
 
+Answer DPLLSolution(Formular& formular){
+    Answer ans;
+    ans.numBoolen = formular.numBoolen;
+    ans.state = (char*) malloc(sizeof(char) * (formular.numBoolen + 1));
+    for(int i = 0; i <= formular.numBoolen; i ++)
+        ans.state[i] = UNKNOWN;
+    ans.solved = false;
+    DPLL(formular, ans);
+    return ans;
+}
 void test1(){
     printf("----SAT----\n");
 }
