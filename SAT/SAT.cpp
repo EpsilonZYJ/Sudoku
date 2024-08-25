@@ -141,12 +141,34 @@ Formular copyFormular(Formular formular){
     if(formular.root){
         pClause cls_old = formular.root;
         pClause cls_new_head = (pClause) malloc(sizeof(Clause));
+        cls_new_head->firstLiteral = NULL;
+        cls_new_head->nextClause = NULL;
         pLiteral lit_old = cls_old->firstLiteral;
-        pLiteral lit_new = (pLiteral) malloc(sizeof(Literal));
-
+        while(lit_old){
+            pLiteral lit_new_head = (pLiteral) malloc(sizeof(Literal));
+            lit_new_head->data = lit_old->data;
+            lit_new_head->is_negative = lit_old->is_negative;
+            lit_new_head->next = cls_new_head->firstLiteral;
+            cls_new_head->firstLiteral = lit_new_head;
+            lit_old = lit_old->next;
+        }
+        cls_old = cls_old->nextClause;
         while(cls_old){
             pClause clause = (pClause) malloc(sizeof(Clause));
-
+            clause->firstLiteral = NULL;
+            clause->nextClause = cls_new_head;
+            cls_new_head = clause;
+            newCopy.root = cls_new_head;
+            lit_old = cls_old->firstLiteral;
+            while(lit_old){
+                pLiteral lit_new_head = (pLiteral) malloc(sizeof(Literal));
+                lit_new_head->data = lit_old->data;
+                lit_new_head->is_negative = lit_old->is_negative;
+                lit_new_head->next = cls_new_head->firstLiteral;
+                cls_new_head->firstLiteral = lit_new_head;
+                lit_old = lit_old->next;
+            }
+            cls_old = cls_old->nextClause;
         }
     }
     return newCopy;
@@ -252,6 +274,7 @@ void DPLL(Formular formular, Answer& ans){
     v->next = NULL;
     Clause* clause = createClause(v);
     addClause(formular.root, clause);
+    Formular newFormular = copyFormular(formular);
     DPLL(formular, ans);
     if(ans.solved)
         return;
@@ -260,6 +283,8 @@ void DPLL(Formular formular, Answer& ans){
         v->is_negative = true;
         clause = createClause(v);
         addClause(formular.root, clause);
+        destroyFormular(newFormular);
+        newFormular = copyFormular(formular);
         DPLL(formular, ans);
         if(ans.solved)
             return;
