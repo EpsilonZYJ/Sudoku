@@ -13,3 +13,7 @@ run:
 .PHONY: clean
 clean:
 	rm -rf build
+
+.PHONY: copy
+copy:
+	cp ./build/Debug/Sudoku.exe ./

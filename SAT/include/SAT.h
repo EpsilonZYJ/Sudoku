@@ -40,7 +40,7 @@ typedef struct Formular{
 typedef struct Answer{
     int numBoolen;
     bool solved;
-    bool* state;
+    int* state;
 }Answer;
 
 void ReadCNFFile(FILE* fin, Formular& formular);
@@ -57,5 +57,6 @@ void DPLL(Formular formular, Answer& ans);
 Answer DPLLSolution(Formular& formular);
 void destroyFormular(Formular& formular);
 void destroyAnswer(Answer& ans);
+Formular copyFormular(Formular formular);
 
 #endif //SUDOKU_SAT_H

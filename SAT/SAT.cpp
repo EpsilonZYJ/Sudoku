@@ -78,6 +78,7 @@ void destroyClause(Formular& formular, Clause* &clause){
     while(clause->firstLiteral){
         clause->firstLiteral = p->next;
         free(p);
+        p = clause->firstLiteral;
     }
     Clause *cls_free = formular.root;
     if(formular.root == clause){
@@ -126,6 +127,29 @@ Clause* UnitClauseLeft(Formular formular){
         p = p->nextClause;
     }
     return NULL;
+}
+
+/*
+ * 复制公式
+ */
+Formular copyFormular(Formular formular){
+    Formular newCopy;
+    newCopy.numBoolen = formular.numBoolen;
+    newCopy.numClause = formular.numClause;
+    newCopy.root = NULL;
+
+    if(formular.root){
+        pClause cls_old = formular.root;
+        pClause cls_new_head = (pClause) malloc(sizeof(Clause));
+        pLiteral lit_old = cls_old->firstLiteral;
+        pLiteral lit_new = (pLiteral) malloc(sizeof(Literal));
+
+        while(cls_old){
+            pClause clause = (pClause) malloc(sizeof(Clause));
+
+        }
+    }
+    return newCopy;
 }
 
 /*
@@ -218,28 +242,30 @@ void DPLL(Formular formular, Answer& ans){
                 return;
             }
         }
-        //选取变元v
-        pLiteral v = (pLiteral) malloc(sizeof(Literal));
-        v->data = formular.root->firstLiteral->data;
-        v->is_negative = false;
-        v->next = NULL;
-        Clause* clause = createClause(v);
+        formular.numBoolen --;
+    }
+
+    //选取变元v
+    pLiteral v = (pLiteral) malloc(sizeof(Literal));
+    v->data = formular.root->firstLiteral->data;
+    v->is_negative = false;
+    v->next = NULL;
+    Clause* clause = createClause(v);
+    addClause(formular.root, clause);
+    DPLL(formular, ans);
+    if(ans.solved)
+        return;
+    else{
+        destroyClause(formular, clause);
+        v->is_negative = true;
+        clause = createClause(v);
         addClause(formular.root, clause);
         DPLL(formular, ans);
         if(ans.solved)
             return;
         else{
-            destroyClause(formular, clause);
-            v->is_negative = true;
-            clause = createClause(v);
-            addClause(formular.root, clause);
-            DPLL(formular, ans);
-            if(ans.solved)
-                return;
-            else{
-                ans.solved = false;
-                return;
-            }
+            ans.solved = false;
+            return;
         }
     }
 }
@@ -247,7 +273,7 @@ void DPLL(Formular formular, Answer& ans){
 Answer DPLLSolution(Formular& formular){
     Answer ans;
     ans.numBoolen = formular.numBoolen;
-    ans.state = (bool*) malloc(sizeof(bool) * (formular.numBoolen + 1));
+    ans.state = (int*) malloc(sizeof(int) * (formular.numBoolen + 1));
     for(int i = 0; i <= formular.numBoolen; i ++)
         ans.state[i] = UNKNOWN;
     ans.solved = false;
