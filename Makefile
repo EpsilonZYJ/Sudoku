@@ -16,4 +16,4 @@ clean:
 
 .PHONY: copy
 copy:
-	cp ./build/Debug/Sudoku.exe ./
+	cp -r ./build/Debug/Sudoku.exe ./Sudoku.exe

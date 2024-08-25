@@ -99,10 +99,11 @@ void destroyClause(Formular& formular, Clause* &clause){
 /*
  * 向pre_clause子句后插入insert_clause子句
  */
-void addClause(Clause* &pre_clause, Clause* &insert_clause){
+void addClause(Formular& formular, Clause* &pre_clause, Clause* &insert_clause){
     Clause *p = pre_clause->nextClause;
     pre_clause->nextClause = insert_clause;
     insert_clause->nextClause = p;
+    formular.numClause ++;
 }
 
 /*
@@ -202,10 +203,14 @@ void DPLL(Formular formular, Answer& ans){
             }
             //当子句第一个变元为相反的单子句时
             else if(s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative) {
-                while(s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative){
+                while(s->firstLiteral && s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative){
                     pLiteral p = s->firstLiteral;
                     s->firstLiteral = p->next;
                     free(p);
+                }
+                if(s->firstLiteral == NULL){
+                    ans.solved = false;
+                    return;
                 }
                 bool next = false;
                 if(s->firstLiteral == NULL){
@@ -273,19 +278,19 @@ void DPLL(Formular formular, Answer& ans){
     v->is_negative = false;
     v->next = NULL;
     Clause* clause = createClause(v);
-    addClause(formular.root, clause);
+    addClause(formular, formular.root, clause);
     Formular newFormular = copyFormular(formular);
-    DPLL(formular, ans);
+    DPLL(newFormular, ans);
     if(ans.solved)
         return;
     else{
         destroyClause(formular, clause);
         v->is_negative = true;
         clause = createClause(v);
-        addClause(formular.root, clause);
+        addClause(formular, formular.root, clause);
         destroyFormular(newFormular);
         newFormular = copyFormular(formular);
-        DPLL(formular, ans);
+        DPLL(newFormular, ans);
         if(ans.solved)
             return;
         else{

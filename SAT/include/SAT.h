@@ -47,7 +47,7 @@ void ReadCNFFile(FILE* fin, Formular& formular);
 
 Clause* createClause(Literal* &head);
 void destroyClause(Formular& formular, Clause* &clause);
-void addClause(Clause* &pre_clause, Clause* &insert_clause);
+void addClause(Formular &formular, Clause* &pre_clause, Clause* &insert_clause);
 inline bool isUnitClause(Clause* clause);
 void evaluateClause();
 Clause* UnitClauseLeft(Formular formular);
