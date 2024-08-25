@@ -55,5 +55,7 @@ Clause* UnitClauseLeft(Formular formular);
 void test1();
 void DPLL(Formular formular, Answer& ans);
 Answer DPLLSolution(Formular& formular);
+void destroyFormular(Formular& formular);
+void destroyAnswer(Answer& ans);
 
 #endif //SUDOKU_SAT_H

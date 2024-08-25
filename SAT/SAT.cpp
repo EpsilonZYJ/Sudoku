@@ -213,6 +213,33 @@ void DPLL(Formular formular, Answer& ans){
                 if(!next)
                     s = s->nextClause;
             }
+            if(formular.root == NULL){
+                ans.solved = true;
+                return;
+            }
+        }
+        //选取变元v
+        pLiteral v = (pLiteral) malloc(sizeof(Literal));
+        v->data = formular.root->firstLiteral->data;
+        v->is_negative = false;
+        v->next = NULL;
+        Clause* clause = createClause(v);
+        addClause(formular.root, clause);
+        DPLL(formular, ans);
+        if(ans.solved)
+            return;
+        else{
+            destroyClause(formular, clause);
+            v->is_negative = true;
+            clause = createClause(v);
+            addClause(formular.root, clause);
+            DPLL(formular, ans);
+            if(ans.solved)
+                return;
+            else{
+                ans.solved = false;
+                return;
+            }
         }
     }
 }
@@ -227,6 +254,23 @@ Answer DPLLSolution(Formular& formular){
     DPLL(formular, ans);
     return ans;
 }
+
+void destroyFormular(Formular& formular){
+    Clause* p = formular.root;
+    while(p){
+        Clause* q = p;
+        p = p->nextClause;
+        destroyClause(formular, q);
+    }
+    formular.numBoolen = 0;
+}
+
+void destroyAnswer(Answer& ans){
+    free(ans.state);
+    ans.numBoolen = 0;
+    ans.solved = false;
+}
+
 void test1(){
     printf("----SAT----\n");
 }
