@@ -40,19 +40,20 @@ typedef struct Formular{
 typedef struct Answer{
     int numBoolen;
     bool solved;
-    char* state;
-};
+    bool* state;
+}Answer;
 
-void ReadCNFFile(FILE* fin);
+void ReadCNFFile(FILE* fin, Formular& formular);
 
 Clause* createClause(Literal* &head);
 void destroyClause(Formular& formular, Clause* &clause);
 void addClause(Clause* &pre_clause, Clause* &insert_clause);
 inline bool isUnitClause(Clause* clause);
 void evaluateClause();
+Clause* UnitClauseLeft(Formular formular);
 
 void test1();
-void DPLL(Formular& formular, Answer& ans);
+void DPLL(Formular formular, Answer& ans);
 Answer DPLLSolution(Formular& formular);
 
 #endif //SUDOKU_SAT_H

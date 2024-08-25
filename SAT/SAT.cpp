@@ -108,21 +108,57 @@ void addClause(Clause* &pre_clause, Clause* &insert_clause){
  * 判断子句是否为单子句
  */
 inline bool isUnitClause(Clause* clause){
-    return clause->firstLiteral->next == NULL;
+    return clause->firstLiteral != NULL && clause->firstLiteral->next == NULL;
 }
 
 void evaluateClause(){
 
 }
 
-void DPLL(Formular& formular, Answer& ans){
+/*
+ * 判断是否存在单子句
+ */
+Clause* UnitClauseLeft(Formular formular){
+    Clause* p = formular.root;
+    while(p){
+        if(isUnitClause(p))
+            return p;
+        p = p->nextClause;
+    }
+    return NULL;
+}
 
+/*
+ * DPLL算法
+ */
+void DPLL(Formular formular, Answer& ans){
+    Clause* unitClause;
+    while(unitClause = UnitClauseLeft(formular)){
+        int data = unitClause->firstLiteral->data;
+        bool is_negative = unitClause->firstLiteral->is_negative;
+        ans.state[data] = !is_negative;
+        Clause *s = formular.root;
+        while(s){
+            if(!s->firstLiteral){
+                ans.solved = false;
+                return;
+            }
+            if(s->firstLiteral->data == data && s->firstLiteral->is_negative == is_negative){
+                Clause* p = s;
+                s = s->nextClause;
+                destroyClause(formular, p);
+            }
+            else if(s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative) {
+
+            }
+        }
+    }
 }
 
 Answer DPLLSolution(Formular& formular){
     Answer ans;
     ans.numBoolen = formular.numBoolen;
-    ans.state = (char*) malloc(sizeof(char) * (formular.numBoolen + 1));
+    ans.state = (bool*) malloc(sizeof(bool) * (formular.numBoolen + 1));
     for(int i = 0; i <= formular.numBoolen; i ++)
         ans.state[i] = UNKNOWN;
     ans.solved = false;
