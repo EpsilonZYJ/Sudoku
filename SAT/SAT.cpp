@@ -138,18 +138,80 @@ void DPLL(Formular formular, Answer& ans){
         bool is_negative = unitClause->firstLiteral->is_negative;
         ans.state[data] = !is_negative;
         Clause *s = formular.root;
+
+        //依据单子句规则简化公式
         while(s){
+            //如果子句为空则公式不可满足
             if(!s->firstLiteral){
                 ans.solved = false;
                 return;
             }
+
+            //如果子句中存在单子句则删除该子句
+            //当子句第一个变元为单子句时
             if(s->firstLiteral->data == data && s->firstLiteral->is_negative == is_negative){
                 Clause* p = s;
                 s = s->nextClause;
                 destroyClause(formular, p);
             }
+            //当子句第一个变元为相反的单子句时
             else if(s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative) {
-
+                while(s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative){
+                    pLiteral p = s->firstLiteral;
+                    s->firstLiteral = p->next;
+                    free(p);
+                }
+                bool next = false;
+                if(s->firstLiteral == NULL){
+                    ans.solved = false;
+                    return;
+                } else{
+                    pLiteral p = s->firstLiteral;
+                    while(p->next){
+                        if(p->next->data == data && p->next->is_negative == is_negative){
+                            Clause* delClause = s;
+                            s = s->nextClause;
+                            next = true;
+                            destroyClause(formular, delClause);
+                            delClause = NULL;
+                            p = NULL;
+                            break;
+                        }
+                        else if(p->next->data == data && p->next->is_negative != is_negative){
+                            pLiteral delLiteral = p->next;
+                            p->next = delLiteral->next;
+                            free(delLiteral);
+                        }
+                        else
+                            p = p->next;
+                    }
+                    if(!next)
+                        s = s->nextClause;
+                }
+            }
+            else{
+                pLiteral p = s->firstLiteral;
+                bool next = false;
+                while(p->next){
+                    if(p->next->data == data && p->next->is_negative == is_negative){
+                        Clause* delClause = s;
+                        s = s->nextClause;
+                        next = true;
+                        destroyClause(formular, delClause);
+                        delClause = NULL;
+                        p = NULL;
+                        break;
+                    }
+                    else if(p->next->data == data && p->next->is_negative != is_negative){
+                        pLiteral delLiteral = p->next;
+                        p->next = delLiteral->next;
+                        free(delLiteral);
+                    }
+                    else
+                        p = p->next;
+                }
+                if(!next)
+                    s = s->nextClause;
             }
         }
     }
