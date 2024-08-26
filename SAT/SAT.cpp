@@ -74,7 +74,7 @@ Clause* createClause(Literal* &head){
  * 销毁子句
  */
 void destroyClause(Formular& formular, Clause* &clause){
-    pLiteral p = clause->firstLiteral;
+    Literal* p = clause->firstLiteral;
     while(clause->firstLiteral){
         clause->firstLiteral = p->next;
         free(p);
@@ -140,13 +140,13 @@ Formular copyFormular(Formular formular){
     newCopy.root = NULL;
 
     if(formular.root){
-        pClause cls_old = formular.root;
-        pClause cls_new_head = (pClause) malloc(sizeof(Clause));
+        Clause* cls_old = formular.root;
+        Clause* cls_new_head = (Clause*) malloc(sizeof(Clause));
         cls_new_head->firstLiteral = NULL;
         cls_new_head->nextClause = NULL;
         pLiteral lit_old = cls_old->firstLiteral;
         while(lit_old){
-            pLiteral lit_new_head = (pLiteral) malloc(sizeof(Literal));
+            Literal* lit_new_head = (Literal*) malloc(sizeof(Literal));
             lit_new_head->data = lit_old->data;
             lit_new_head->is_negative = lit_old->is_negative;
             lit_new_head->next = cls_new_head->firstLiteral;
@@ -155,14 +155,14 @@ Formular copyFormular(Formular formular){
         }
         cls_old = cls_old->nextClause;
         while(cls_old){
-            pClause clause = (pClause) malloc(sizeof(Clause));
+            Clause* clause = (Clause*) malloc(sizeof(Clause));
             clause->firstLiteral = NULL;
             clause->nextClause = cls_new_head;
             cls_new_head = clause;
             newCopy.root = cls_new_head;
             lit_old = cls_old->firstLiteral;
             while(lit_old){
-                pLiteral lit_new_head = (pLiteral) malloc(sizeof(Literal));
+                Literal* lit_new_head = (Literal*) malloc(sizeof(Literal));
                 lit_new_head->data = lit_old->data;
                 lit_new_head->is_negative = lit_old->is_negative;
                 lit_new_head->next = cls_new_head->firstLiteral;
