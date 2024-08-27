@@ -37,6 +37,7 @@ void CNFtest(char* filepath){
     else
         printf("UNSOLVED!\n");
     printf("Time: %f\n", duration);
+    destroyFormular(formular);
     destroyAnswer(ans);
 }
 

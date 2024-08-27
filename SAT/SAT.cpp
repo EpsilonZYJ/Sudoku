@@ -290,10 +290,13 @@ void DPLL(Formular &formular, Answer& ans){
         destroyFormular(newFormular);
         newFormular = copyFormular(formular);
         DPLL(newFormular, ans);
-        if(ans.solved)
+        if(ans.solved) {
+            destroyFormular(newFormular);   //若有问题则删除
             return;
+        }
         else{
             ans.solved = false;
+            destroyFormular(newFormular);   //若有问题则删除
             return;
         }
     }
