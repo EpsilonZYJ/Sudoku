@@ -15,8 +15,8 @@
 #include <stdlib.h>
 
 #define POSITIVE 1
-#define NEGATIVE 0
-#define UNKNOWN -1
+#define NEGATIVE -1
+#define UNKNOWN 0
 
 //文字的存储结构
 typedef struct Literal{
@@ -53,7 +53,7 @@ void evaluateClause();
 Clause* UnitClauseLeft(Formular formular);
 
 void test1();
-void DPLL(Formular formular, Answer& ans);
+void DPLL(Formular &formular, Answer& ans);
 Answer DPLLSolution(Formular& formular);
 void destroyFormular(Formular& formular);
 void destroyAnswer(Answer& ans);

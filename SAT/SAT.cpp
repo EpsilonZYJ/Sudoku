@@ -4,6 +4,7 @@
  * date: 2024-8-18
  */
 #include "include/SAT.h"
+#include <assert.h>
 
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
 
@@ -142,6 +143,10 @@ Formular copyFormular(Formular formular){
     if(formular.root){
         Clause* cls_old = formular.root;
         Clause* cls_new_head = (Clause*) malloc(sizeof(Clause));
+//        if(cls_new_head->firstLiteral == NULL){
+//            printf("malloc error!\n");
+//        }
+//        assert(cls_new_head != NULL);
         cls_new_head->firstLiteral = NULL;
         cls_new_head->nextClause = NULL;
         pLiteral lit_old = cls_old->firstLiteral;
@@ -178,12 +183,12 @@ Formular copyFormular(Formular formular){
 /*
  * DPLL算法
  */
-void DPLL(Formular formular, Answer& ans){
+void DPLL(Formular &formular, Answer& ans){
     Clause* unitClause;
     while(unitClause = UnitClauseLeft(formular)){
         int data = unitClause->firstLiteral->data;
         bool is_negative = unitClause->firstLiteral->is_negative;
-        ans.state[data] = !is_negative;
+        ans.state[data] = is_negative ? NEGATIVE : POSITIVE;
         Clause *s = formular.root;
 
         //依据单子句规则简化公式
@@ -285,7 +290,10 @@ void DPLL(Formular formular, Answer& ans){
         return;
     else{
         destroyClause(formular, clause);
+        v = (pLiteral) malloc(sizeof(Literal));
+        v->data = formular.root->firstLiteral->data;
         v->is_negative = true;
+        v->next = NULL;
         clause = createClause(v);
         addClause(formular, formular.root, clause);
         destroyFormular(newFormular);
