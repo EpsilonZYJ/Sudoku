@@ -37,44 +37,11 @@ void CNFtest(char* filepath){
     else
         printf("UNSOLVED!\n");
     printf("Time: %f\n", duration);
+    destroyAnswer(ans);
 }
 
-void test_destroyFormular(){
-    Formular formulatr;
-    formulatr.root = NULL;
-    formulatr.numBoolen = 0;
-    formulatr.numClause = 0;
-    printf("---read file---\n");
-    char* filepath = (char*)malloc(sizeof(char) * 100);
-    scanf("%s", filepath);
-    FILE* fp = fopen(filepath, "r");
-    if(fp == NULL){
-        printf("File not found!\n");
-        return;
-    }
-    ReadCNFFile(fp, formulatr);
-    fclose(fp);
-    printf("%p\n", formulatr.root);
-    printf("---destroy---\n");
-    destroyFormular(formulatr);
-
-
-    fp = fopen(filepath, "r");
-    ReadCNFFile(fp, formulatr);
-    printf("%p\n", formulatr.root);
-    fclose(fp);
-    printf("---destroy---\n");
-    Formular newFormular = copyFormular(formulatr);
-    destroyFormular(formulatr);
-
-    printf("newFormular\n");
-    printf("%p\n", newFormular.root);
-    destroyFormular(newFormular);
-
-}
 
 int main() {
-    test1();
     test2();
     test3();
     printf("-----test-----\n");
@@ -84,6 +51,5 @@ int main() {
         scanf("%s", filepath);
         CNFtest(filepath);
     }
-//    test_destroyFormular();
     return 0;
 }

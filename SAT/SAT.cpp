@@ -4,7 +4,6 @@
  * date: 2024-8-18
  */
 #include "include/SAT.h"
-#include <assert.h>
 
 #define ABS(x) ((x) >= 0 ? (x) : -(x))
 
@@ -114,10 +113,6 @@ inline bool isUnitClause(Clause* clause){
     return clause->firstLiteral != NULL && clause->firstLiteral->next == NULL;
 }
 
-void evaluateClause(){
-
-}
-
 /*
  * 判断是否存在单子句
  */
@@ -143,10 +138,6 @@ Formular copyFormular(Formular formular){
     if(formular.root){
         Clause* cls_old = formular.root;
         Clause* cls_new_head = (Clause*) malloc(sizeof(Clause));
-//        if(cls_new_head->firstLiteral == NULL){
-//            printf("malloc error!\n");
-//        }
-//        assert(cls_new_head != NULL);
         cls_new_head->firstLiteral = NULL;
         cls_new_head->nextClause = NULL;
         pLiteral lit_old = cls_old->firstLiteral;
@@ -316,6 +307,7 @@ Answer DPLLSolution(Formular& formular){
         ans.state[i] = UNKNOWN;
     ans.solved = false;
     DPLL(formular, ans);
+    destroyFormular(formular);
     return ans;
 }
 
@@ -333,8 +325,4 @@ void destroyAnswer(Answer& ans){
     free(ans.state);
     ans.numBoolen = 0;
     ans.solved = false;
-}
-
-void test1(){
-    printf("----SAT----\n");
 }

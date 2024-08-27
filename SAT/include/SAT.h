@@ -49,10 +49,8 @@ Clause* createClause(Literal* &head);
 void destroyClause(Formular& formular, Clause* &clause);
 void addClause(Formular &formular, Clause* &pre_clause, Clause* &insert_clause);
 inline bool isUnitClause(Clause* clause);
-void evaluateClause();
 Clause* UnitClauseLeft(Formular formular);
 
-void test1();
 void DPLL(Formular &formular, Answer& ans);
 Answer DPLLSolution(Formular& formular);
 void destroyFormular(Formular& formular);
