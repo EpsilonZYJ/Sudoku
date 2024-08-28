@@ -1,5 +1,6 @@
 .idea
 cmake-build-debug
 build
-*.exe
 Data
+Answer
+*.exe
