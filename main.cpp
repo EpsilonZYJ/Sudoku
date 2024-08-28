@@ -48,8 +48,8 @@ void writeAnswer(Answer ans, char* filepath){
         printf("Cannot open the file!\n");
         return;
     }
-    if(ans.solved == false)
-        fprintf(fout, "UNSAT\n");
+    if(!ans.solved)
+        fprintf(fout, "UNSOLVED\n");
     else{
         for(int i = 1; i <= ans.numBoolen; i ++){
             if(ans.state[i] == POSITIVE)
@@ -94,12 +94,12 @@ void CNFtest(char* filepath){
                 printf("+-%d ", i);
         }
         printf("\n");
-        char* ansName = getFileName(filepath);
-        writeAnswer(ans, ansName);
-        free(ansName);
     }
     else
         printf("UNSOLVED!\n");
+    char* ansName = getFileName(filepath);
+    writeAnswer(ans, ansName);
+    free(ansName);
     printf("Time: %f\n", duration);
     destroyFormular(formular);
     destroyAnswer(ans);
