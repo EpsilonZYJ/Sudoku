@@ -329,3 +329,30 @@ void destroyAnswer(Answer& ans){
     ans.numBoolen = 0;
     ans.solved = false;
 }
+
+bool answerSatisfied(Formular formular, Answer ans){
+    bool flag = true;
+    Clause *clause = formular.root;
+    while(clause){
+        bool clause_flag = false;
+        pLiteral lit = clause->firstLiteral;
+        while(lit && !clause_flag){
+            if(lit->is_negative && ans.state[lit->data] == NEGATIVE){
+                clause_flag = true;
+                break;
+            }
+            else if(!lit->is_negative && ans.state[lit->data] == POSITIVE){
+                clause_flag = true;
+                break;
+            }
+            lit = lit->next;
+        }
+        if(!clause_flag){
+            flag = false;
+            break;
+        }
+        clause = clause->nextClause;
+    }
+    return flag;
+}
+

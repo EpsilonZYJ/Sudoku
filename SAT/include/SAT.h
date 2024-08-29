@@ -56,5 +56,6 @@ Answer DPLLSolution(Formular& formular);
 void destroyFormular(Formular& formular);
 void destroyAnswer(Answer& ans);
 Formular copyFormular(Formular formular);
+bool answerSatisfied(Formular formular, Answer ans);
 
 #endif //SUDOKU_SAT_H
