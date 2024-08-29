@@ -1,6 +1,6 @@
 # Sudoku
 
-Windows构建：
+## Windows构建：
 
 *确保安装了MinGW*
 
@@ -21,3 +21,23 @@ make clean
 ```
 
 可以清除构建文件build
+
+## Linux构建：
+
+**修改CMakeLists中编译器地址**
+
+在该目录下直接使用命令行构建运行
+
+```shell
+make build	#构建
+make run	#运行
+```
+
+使用
+
+```shell
+make clean
+```
+
+可以清除构建文件build
+
