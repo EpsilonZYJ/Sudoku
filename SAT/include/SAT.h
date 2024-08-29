@@ -41,6 +41,7 @@ typedef struct Answer{
     int numBoolen;
     bool solved;
     int* state;
+    double time;
 }Answer;
 
 void ReadCNFFile(FILE* fin, Formular& formular);

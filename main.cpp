@@ -61,12 +61,12 @@ void writeAnswer(Answer ans, char* filepath){
         }
         fprintf(fout, "\n");
     }
+    fprintf(fout, "time:%f\n", ans.time);
     fclose(fout);
 }
 
 void CNFtest(char* filepath){
     clock_t start, finish;
-    start = clock();
     Formular formular;
     formular.root = NULL;
     formular.numBoolen = 0;
@@ -79,9 +79,10 @@ void CNFtest(char* filepath){
     }
     ReadCNFFile(fin, formular);
     fclose(fin);
+    start = clock();
     Answer ans = DPLLSolution(formular);
     finish = clock();
-    double duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    ans.time = (double)(finish - start) / CLOCKS_PER_SEC;
 
     if(ans.solved) {
         printf("SAT\n");
@@ -100,7 +101,7 @@ void CNFtest(char* filepath){
     char* ansName = getFileName(filepath);
     writeAnswer(ans, ansName);
     free(ansName);
-    printf("Time: %f\n", duration);
+    printf("Time: %f\n", ans.time);
     destroyFormular(formular);
     destroyAnswer(ans);
 }
