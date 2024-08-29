@@ -65,6 +65,28 @@ void writeRules(int type){
         }
     }
 
+    //每个3*3的小方格中每个数字至多出现一次
+    for(int row_i = 0; row_i < 3; row_i ++){
+        for(int col_i = 0; col_i < 3; col_i ++){
+           //第row_i行col_i列的3x3方格
+           for(num = 1; num <= 9; num ++){
+               for(row = 1; row <=3; row ++){
+                   for(col = 1; col <= 3; col ++){
+                       for(int i = row; i <= 3; i ++){
+                           for(int j = col; j <= 3; j ++){
+                               if(i == row && j == col)
+                                   continue;
+                               fprintf(fout, "-%d -%d 0\n", getLiteral(row_i*3+row, col_i*3+col, num), getLiteral(row_i*3+i, col_i*3+j, num));
+                           }
+                       }
+                   }
+               }
+           }
+        }
+    }
+
+    //每个3x3的小方格中每个数字至少出现一次
+
 }
 
 void initSudoku(Sudoku& s){
