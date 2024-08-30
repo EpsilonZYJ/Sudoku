@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "include/X_Sudoku.h"
+#include "../SAT/include/SAT.h"
 
 Hole randomLocation(){
     Hole h;
@@ -125,6 +126,27 @@ void writeRules(int type){
         }
     }
     fclose(fout);
+}
+
+Answer encodeSudokuTable(Sudoku sudoku){
+    Answer ans;
+    ans.state = (int*) malloc(sizeof(int)* 730);
+    for(int i = 1; i < 730; i ++)
+        ans.state[i] = UNKNOWN;
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            int num = sudoku.ProblemTable[row-1][col-1];
+            if(num == EMPTY)
+                continue;
+            ans.state[getLiteral(row, col, num)] = POSITIVE;
+            for(int i = 1; i <= 9; i ++){
+                if(i == num)
+                    continue;
+                ans.state[getLiteral(row, col, i)] = NEGATIVE;
+            }
+        }
+    }
+    return ans;
 }
 
 void initSudoku(Sudoku& s){

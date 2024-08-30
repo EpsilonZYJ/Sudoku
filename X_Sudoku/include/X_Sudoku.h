@@ -31,6 +31,7 @@ inline int getLiteral(int row, int col, int num);
 void writeRules(int type);
 Hole randomLocation();
 void initSudoku(Sudoku& s);
+Answer encodeSudokuTable(Sudoku sudoku);
 bool las_vegas(int n);
 void test2();
 
