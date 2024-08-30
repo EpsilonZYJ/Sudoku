@@ -4,3 +4,4 @@ build
 Data
 Answer
 *.exe
+*.cnf
