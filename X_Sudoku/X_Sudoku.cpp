@@ -160,6 +160,137 @@ void initSudoku(Sudoku& s){
     s.numHoles = 0;
 }
 
+bool checkOneSudokuAnswer(Answer ans){
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            for(int num = 1; num <= 9; num ++){
+                if(ans.state[getLiteral(row, col, num)] == UNKNOWN)
+                    return false;
+            }
+        }
+    }
+    return true;
+}
+
+void simplifyFormular(Formular& formular, Answer ans){
+    Clause* s = formular.root;
+    while(s){
+        if(s->firstLiteral->is_negative == false && ans.state[s->firstLiteral->data] == POSITIVE){
+            Clause* p = s;
+            s = s->nextClause;
+            destroyClause(formular, p);
+        }
+        else if(s->firstLiteral->is_negative == true && ans.state[s->firstLiteral->data] == NEGATIVE){
+            Clause* p = s;
+            s = s->nextClause;
+            destroyClause(formular, p);
+        }
+        else if(s->firstLiteral->is_negative == false && ans.state[s->firstLiteral->data] == NEGATIVE){
+            pLiteral q = s->firstLiteral;
+            s->firstLiteral = s->firstLiteral->next;
+            free(q);
+            s = s->nextClause;
+        }
+        else if(s->firstLiteral->is_negative == true && ans.state[s->firstLiteral->data] == POSITIVE){
+            pLiteral q = s->firstLiteral;
+            s->firstLiteral = s->firstLiteral->next;
+            free(q);
+            s = s->nextClause;
+        }
+        else{
+            pLiteral pre = s->firstLiteral;
+            bool next = false;
+            while(pre->next){
+                if(pre->next->is_negative == false && ans.state[pre->next->data] == POSITIVE){
+                    Clause* p = s;
+                    s = s->nextClause;
+                    destroyClause(formular, p);
+                    next = true;
+                }
+                else if(pre->next->is_negative == true && ans.state[pre->next->data] == NEGATIVE){
+                    Clause* p = s;
+                    s = s->nextClause;
+                    destroyClause(formular, p);
+                    next = true;
+                }
+                else if(pre->next->is_negative == false && ans.state[pre->next->data] == NEGATIVE){
+                    pLiteral q = pre->next;
+                    pre->next = pre->next->next;
+                    free(q);
+                    pre = pre->next;
+                }
+                else if(pre->next->is_negative == true && ans.state[pre->next->data] == POSITIVE){
+                    pLiteral q = pre->next;
+                    pre->next = pre->next->next;
+                    free(q);
+                    pre = pre->next;
+                }
+                else
+                    pre = pre->next;
+            }
+            if(!next)
+                s = s->nextClause;
+        }
+        if(formular.root == NULL){
+            ans.solved = true;
+            return;
+        }
+    }
+    formular.numBoolen --;
+}
+
 void test2(){
     printf("---X_Sudo---\n");
+}
+
+Sudoku sudokuSolution(Answer (*DPLLSolu)(Formular&), int type){
+    Sudoku sudoku;
+    initSudoku(sudoku);
+    Formular formular;
+    Answer ans;
+
+    //生成数独规则
+    writeRules(type);
+    FILE* fin;
+    if(type == DIAGONAL){
+        fin = fopen("DiagonalSudokuRules.cnf", "r");
+    }
+    else{
+        fin = fopen("SudokuRules.cnf", "r");
+    }
+
+    printf("We are now generating the solution of sudoku...\n");
+
+    do{
+        int percent = sudoku.numFilled * 100 / 81;
+        printf("%d%%", percent);
+        for(int i = 0; i < percent/10; i ++)
+            printf("#");
+        printf("\r");
+        fflush(stdout);
+
+        ReadCNFFile(fin, formular);
+        for(int i = 0; i < 11; i ++){
+            Position pos = randomLocation();
+            while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
+                pos = randomLocation();
+            int num = rand() % 9 + 1;
+            sudoku.SolutionTable[pos.x][pos.y] = num;
+            sudoku.numFilled ++;
+        }
+
+        percent = sudoku.numFilled * 100 / 81;
+        printf("%d%%", percent);
+        for(int i = 0; i < percent/10; i ++)
+            printf("#");
+        printf("\r");
+        fflush(stdout);
+
+        ans = encodeSudokuTable(sudoku);
+
+    }while(1);
+
+    fclose(fin);
+
+    return sudoku;
 }

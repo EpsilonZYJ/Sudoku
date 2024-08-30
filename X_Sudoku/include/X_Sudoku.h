@@ -16,7 +16,7 @@
 typedef struct Hole{
     int x;
     int y;
-}Hole;
+}Hole, Position;
 
 typedef struct Sudoku{
     int ProblemTable[9][9];
