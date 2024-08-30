@@ -19,7 +19,8 @@ typedef struct Hole{
 }Hole;
 
 typedef struct Sudoku{
-    int table[9][9];
+    int ProblemTable[9][9];
+    int SolutionTable[9][9];
     int numHoles;
     int numFilled;
     Hole holes[MAX_HOLES];
@@ -27,7 +28,7 @@ typedef struct Sudoku{
 
 bool rulesExist(char* file);
 inline int getLiteral(int row, int col, int num);
-void writeRules();
+void writeRules(int type);
 Hole randomLocation();
 void initSudoku(Sudoku& s);
 bool las_vegas(int n);

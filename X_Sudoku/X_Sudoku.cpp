@@ -32,6 +32,13 @@ void writeRules(int type){
     FILE* fout = fopen(s, "w+");
     int row, col, num;
 
+    if(type == DIAGONAL){
+        fprintf(fout, "p cnf 729 10935\n");
+    }
+    else{
+        fprintf(fout, "p cnf 729 10287\n");
+    }
+
     //每个格子只能填入1~9中的一个数字
     for(row = 1; row <=9; row ++){
         for(col = 1; col <= 9; col ++){
@@ -58,7 +65,7 @@ void writeRules(int type){
     for(col = 1; col <= 9; col ++){
         for(num = 1; num <= 9; num ++){
             for(row = 1; row <= 8; row ++){
-                for(int i = row+1; i <= 0; i ++){
+                for(int i = row+1; i <= 9; i ++){
                     fprintf(fout, "-%d -%d 0\n", getLiteral(row, col, num), getLiteral(i, col, num));
                 }
             }
@@ -72,9 +79,9 @@ void writeRules(int type){
            for(num = 1; num <= 9; num ++){
                for(row = 1; row <=3; row ++){
                    for(col = 1; col <= 3; col ++){
-                       for(int i = row; i <= 3; i ++){
-                           for(int j = col; j <= 3; j ++){
-                               if(i == row && j == col)
+                       for(int i = row+1; i <= 3; i ++){
+                           for(int j = 1; j <= 3; j ++){
+                               if(col == j)
                                    continue;
                                fprintf(fout, "-%d -%d 0\n", getLiteral(row_i*3+row, col_i*3+col, num), getLiteral(row_i*3+i, col_i*3+j, num));
                            }
@@ -86,13 +93,45 @@ void writeRules(int type){
     }
 
     //每个3x3的小方格中每个数字至少出现一次
+    for(num = 1; num <= 9; num ++){
+        for(int row_i = 0; row_i <= 2; row_i ++){
+            for(int col_i = 0; col_i <= 2; col_i ++){
+                for(row = 1; row <= 3; row ++){
+                    for(col = 1; col <= 3; col ++){
+                        fprintf(fout, "%d ", getLiteral(row_i*3+row, col_i*3+col, num));
+                    }
+                }
+                fprintf(fout, "0\n");
+            }
+        }
+    }
 
+    if(type == DIAGONAL){
+        //对角线上的数字不能重复
+        for(row = 1; row <= 9; row ++){
+            for(num = 1; num <= 9; num ++){
+                for(int i = row+1; i <= 9; i ++){
+                    fprintf(fout, "-%d -%d 0\n", getLiteral(row, row, num), getLiteral(i, i, num));
+                }
+            }
+        }
+
+        for(row = 1; row <= 9; row ++){
+            for(num = 1; num <= 9; num ++){
+                for(int i = row+1; i <= 9; i ++){
+                    fprintf(fout, "-%d -%d 0\n", getLiteral(row, 10-row, num), getLiteral(i, 10-i, num));
+                }
+            }
+        }
+    }
+    fclose(fout);
 }
 
 void initSudoku(Sudoku& s){
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
-            s.table[i][j] = EMPTY;
+            s.ProblemTable[i][j] = EMPTY;
+            s.SolutionTable[i][j] = EMPTY;
         }
     }
     s.numFilled = 0;

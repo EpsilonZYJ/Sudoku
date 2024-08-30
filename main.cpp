@@ -154,6 +154,8 @@ int main() {
     test2();
     test3();
     printf("-----test-----\n");
+    writeRules(NORMAL);
+    writeRules(DIAGONAL);
     char* filepath = (char*)malloc(sizeof(char) * 100);
     for(int i = 0; i < 3; i ++){
         printf("Please input the path of the CNF file:\n");
@@ -163,5 +165,6 @@ int main() {
     for(int i = 0; i < 3; i ++){
         testAnswer();
     }
+    free(filepath);
     return 0;
 }
