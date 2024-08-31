@@ -18,6 +18,16 @@ inline int getLiteral(int row, int col, int num){
     return (row-1)*81 + (col-1)*9 + num;
 }
 
+PosNum decodeLiteral(int boolen){
+    PosNum pos;
+    pos.num = (boolen-1) % 9 + 1;
+    boolen = (boolen-1)/9;
+    pos.y = boolen % 9 + 1;
+    boolen = boolen / 9;
+    pos.x = boolen + 1;
+    return pos;
+}
+
 void writeRules(int type){
      char* s;
     if(type == NORMAL){
@@ -243,11 +253,12 @@ void test2(){
     printf("---X_Sudo---\n");
 }
 
-Sudoku sudokuSolution(Answer (*DPLLSolu)(Formular&), int type){
+Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
     Sudoku sudoku;
     initSudoku(sudoku);
     Formular formular;
     Answer ans;
+    ans.solved = false;
 
     //生成数独规则
     writeRules(type);
@@ -270,14 +281,15 @@ Sudoku sudokuSolution(Answer (*DPLLSolu)(Formular&), int type){
         fflush(stdout);
 
         ReadCNFFile(fin, formular);
-        for(int i = 0; i < 11; i ++){
-            Position pos = randomLocation();
-            while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
-                pos = randomLocation();
-            int num = rand() % 9 + 1;
-            sudoku.SolutionTable[pos.x][pos.y] = num;
-            sudoku.numFilled ++;
-        }
+        if(81 - sudoku.numFilled < 11)
+            for(int i = 0; i < 11; i ++){
+                Position pos = randomLocation();
+                while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
+                    pos = randomLocation();
+                int num = rand() % 9 + 1;
+                sudoku.SolutionTable[pos.x][pos.y] = num;
+                sudoku.numFilled ++;
+            }
 
         percent = sudoku.numFilled * 100 / 81;
         printf("%d%%", percent);
@@ -287,6 +299,19 @@ Sudoku sudokuSolution(Answer (*DPLLSolu)(Formular&), int type){
         fflush(stdout);
 
         ans = encodeSudokuTable(sudoku);
+        simplifyFormular(formular, ans);
+        DPLLSolu(formular, ans);
+        if(ans.solved == true){
+            for(int row = 1; row <= 9; row ++){
+                for(int col = 1; col <= 9; col ++){
+                    for(int num = 1; num <= 9; num ++){
+                        if(ans.state[getLiteral(col, row, num)] == POSITIVE){
+                            sudoku.SolutionTable[row-1][col-1] = num;
+                        }
+                    }
+                }
+            }
+        }
 
     }while(1);
 

@@ -18,6 +18,12 @@ typedef struct Hole{
     int y;
 }Hole, Position;
 
+typedef struct PosNum{
+    int x;
+    int y;
+    int num;
+}PosNum;
+
 typedef struct Sudoku{
     int ProblemTable[9][9];
     int SolutionTable[9][9];
