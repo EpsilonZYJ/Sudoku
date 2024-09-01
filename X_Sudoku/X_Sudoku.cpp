@@ -4,6 +4,7 @@
 
 Hole randomLocation(){
     Hole h;
+    srand(time(0));
     h.x = rand() % 9;
     h.y = rand() % 9;
     return h;
@@ -145,7 +146,7 @@ Answer encodeSudokuTable(Sudoku sudoku){
         ans.state[i] = UNKNOWN;
     for(int row = 1; row <= 9; row ++){
         for(int col = 1; col <= 9; col ++){
-            int num = sudoku.ProblemTable[row-1][col-1];
+            int num = sudoku.SolutionTable[row-1][col-1];
             if(num == EMPTY)
                 continue;
             ans.state[getLiteral(row, col, num)] = POSITIVE;
@@ -246,12 +247,29 @@ void simplifyFormular(Formular& formular, Answer ans){
             return;
         }
     }
-    formular.numBoolen --;
+
 }
 
 void test2(){
     printf("---X_Sudo---\n");
 }
+
+void printSudoku(Sudoku sudoku){
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            if(sudoku.SolutionTable[row-1][col-1] == EMPTY)
+                printf("* ");
+            else
+                printf("%d ", sudoku.SolutionTable[row-1][col-1]);
+            if(col % 3 == 0)
+                printf("|");
+        }
+        printf("\n");
+        if(row % 3 == 0 && row != 9)
+            printf("----------------------\n");
+    }
+}
+
 
 Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
     Sudoku sudoku;
@@ -281,7 +299,7 @@ Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
         fflush(stdout);
 
         ReadCNFFile(fin, formular);
-        if(81 - sudoku.numFilled < 11)
+        if(81 - sudoku.numFilled > 11){
             for(int i = 0; i < 11; i ++){
                 Position pos = randomLocation();
                 while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
@@ -290,7 +308,7 @@ Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
                 sudoku.SolutionTable[pos.x][pos.y] = num;
                 sudoku.numFilled ++;
             }
-
+        }
         percent = sudoku.numFilled * 100 / 81;
         printf("%d%%", percent);
         for(int i = 0; i < percent/10; i ++)
@@ -305,16 +323,24 @@ Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
             for(int row = 1; row <= 9; row ++){
                 for(int col = 1; col <= 9; col ++){
                     for(int num = 1; num <= 9; num ++){
-                        if(ans.state[getLiteral(col, row, num)] == POSITIVE){
-                            sudoku.SolutionTable[row-1][col-1] = num;
+                        if(ans.state[getLiteral(col, row, num)] == POSITIVE && sudoku.SolutionTable[row-1][col-1] == EMPTY){
+                            sudoku.SolutionTable[row-1][col-1] = num, sudoku.numFilled ++;
                         }
                     }
                 }
             }
+            if(sudoku.numFilled == 81){
+                break;
+            }
         }
-
+        else{
+            initSudoku(sudoku);
+        }
+        destroyAnswer(ans);
     }while(1);
 
+    destroyFormular(formular);
+    destroyAnswer(ans);
     fclose(fin);
 
     return sudoku;

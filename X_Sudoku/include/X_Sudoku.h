@@ -42,5 +42,6 @@ void simplifyFormular(Formular& formular, Answer ans);
 Answer encodeSudokuTable(Sudoku sudoku);
 bool las_vegas(int n);
 void test2();
-
+Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type);
+void printSudoku(Sudoku sudoku);
 #endif //SUDOKU_X_SUDOKU_H
