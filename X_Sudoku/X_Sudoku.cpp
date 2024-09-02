@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <time.h>
 #include "include/X_Sudoku.h"
 #include "../SAT/include/SAT.h"
+
 
 Hole randomLocation(){
     Hole h;
@@ -19,15 +21,15 @@ inline int getLiteral(int row, int col, int num){
     return (row-1)*81 + (col-1)*9 + num;
 }
 
-PosNum decodeLiteral(int boolen){
-    PosNum pos;
-    pos.num = (boolen-1) % 9 + 1;
-    boolen = (boolen-1)/9;
-    pos.y = boolen % 9 + 1;
-    boolen = boolen / 9;
-    pos.x = boolen + 1;
-    return pos;
-}
+//PosNum decodeLiteral(int boolen){
+//    PosNum pos;
+//    pos.num = (boolen-1) % 9 + 1;
+//    boolen = (boolen-1)/9;
+//    pos.y = boolen % 9 + 1;
+//    boolen = boolen / 9;
+//    pos.x = boolen + 1;
+//    return pos;
+//}
 
 void writeRules(int type){
      char* s;
@@ -139,26 +141,26 @@ void writeRules(int type){
     fclose(fout);
 }
 
-Answer encodeSudokuTable(Sudoku sudoku){
-    Answer ans;
-    ans.state = (int*) malloc(sizeof(int)* 730);
-    for(int i = 1; i < 730; i ++)
-        ans.state[i] = UNKNOWN;
-    for(int row = 1; row <= 9; row ++){
-        for(int col = 1; col <= 9; col ++){
-            int num = sudoku.SolutionTable[row-1][col-1];
-            if(num == EMPTY)
-                continue;
-            ans.state[getLiteral(row, col, num)] = POSITIVE;
-            for(int i = 1; i <= 9; i ++){
-                if(i == num)
-                    continue;
-                ans.state[getLiteral(row, col, i)] = NEGATIVE;
-            }
-        }
-    }
-    return ans;
-}
+//Answer encodeSudokuTable(Sudoku sudoku){
+//    Answer ans;
+//    ans.state = (int*) malloc(sizeof(int)* 730);
+//    for(int i = 1; i < 730; i ++)
+//        ans.state[i] = UNKNOWN;
+//    for(int row = 1; row <= 9; row ++){
+//        for(int col = 1; col <= 9; col ++){
+//            int num = sudoku.SolutionTable[row-1][col-1];
+//            if(num == EMPTY)
+//                continue;
+//            ans.state[getLiteral(row, col, num)] = POSITIVE;
+//            for(int i = 1; i <= 9; i ++){
+//                if(i == num)
+//                    continue;
+//                ans.state[getLiteral(row, col, i)] = NEGATIVE;
+//            }
+//        }
+//    }
+//    return ans;
+//}
 
 Answer encodeTable(int table[9][9]){
     Answer ans;
@@ -220,105 +222,27 @@ void tableFormularAdd(Formular& formular, int table[9][9]){
     }
 }
 
-void simplifyFormular(Formular& formular, Answer ans){
-    Clause* s = formular.root;
-    while(s){
-        if(s->firstLiteral->is_negative == false && ans.state[s->firstLiteral->data] == POSITIVE){
-            Clause* p = s;
-            s = s->nextClause;
-            destroyClause(formular, p);
-        }
-        else if(s->firstLiteral->is_negative == true && ans.state[s->firstLiteral->data] == NEGATIVE){
-            Clause* p = s;
-            s = s->nextClause;
-            destroyClause(formular, p);
-        }
-        else if(s->firstLiteral->is_negative == false && ans.state[s->firstLiteral->data] == NEGATIVE){
-            pLiteral q = s->firstLiteral;
-            s->firstLiteral = s->firstLiteral->next;
-            free(q);
-            s = s->nextClause;
-        }
-        else if(s->firstLiteral->is_negative == true && ans.state[s->firstLiteral->data] == POSITIVE){
-            pLiteral q = s->firstLiteral;
-            s->firstLiteral = s->firstLiteral->next;
-            free(q);
-            s = s->nextClause;
-        }
-        else{
-            pLiteral pre = s->firstLiteral;
-            bool next = false;
-            while(pre && pre->next){
-                if(pre->next->is_negative == false && ans.state[pre->next->data] == POSITIVE){
-                    Clause* p = s;
-                    s = s->nextClause;
-                    destroyClause(formular, p);
-                    next = true;
-                    while(s->firstLiteral == NULL)
-                        s = s->nextClause;
-                    pre = s->firstLiteral;
-                }
-                else if(pre->next->is_negative == true && ans.state[pre->next->data] == NEGATIVE){
-                    Clause* p = s;
-                    s = s->nextClause;
-                    destroyClause(formular, p);
-                    next = true;
-                    while(s->firstLiteral == NULL)
-                        s = s->nextClause;
-                    pre = s->firstLiteral;
-                }
-                else if(pre->next->is_negative == false && ans.state[pre->next->data] == NEGATIVE){
-                    pLiteral q = pre->next;
-                    pre->next = pre->next->next;
-                    free(q);
-                    pre = pre->next;
-                }
-                else if(pre->next->is_negative == true && ans.state[pre->next->data] == POSITIVE){
-                    pLiteral q = pre->next;
-                    pre->next = pre->next->next;
-                    free(q);
-                    pre = pre->next;
-                }
-                else
-                    pre = pre->next;
-            }
-            if(!next)
-                s = s->nextClause;
-        }
-        if(formular.root == NULL){
-            ans.solved = true;
-            return;
-        }
-    }
-    for(int row = 1; row <= 9; row  ++){
-        for(int col = 1; col <= 9; col ++){
-            for(int num = 1; num <= 9; num ++){
-                if(ans.state[getLiteral(row, col, num)] != EMPTY)
-                    formular.numBoolen --;
-            }
-        }
-    }
-}
+
 
 void test2(){
     printf("---X_Sudo---\n");
 }
 
-void printSudoku(Sudoku sudoku){
-    for(int row = 1; row <= 9; row ++){
-        for(int col = 1; col <= 9; col ++){
-            if(sudoku.SolutionTable[row-1][col-1] == EMPTY)
-                printf("* ");
-            else
-                printf("%d ", sudoku.SolutionTable[row-1][col-1]);
-            if(col % 3 == 0)
-                printf("|");
-        }
-        printf("\n");
-        if(row % 3 == 0 && row != 9)
-            printf("----------------------\n");
-    }
-}
+//void printSudoku(Sudoku sudoku){
+//    for(int row = 1; row <= 9; row ++){
+//        for(int col = 1; col <= 9; col ++){
+//            if(sudoku.SolutionTable[row-1][col-1] == EMPTY)
+//                printf("* ");
+//            else
+//                printf("%d ", sudoku.SolutionTable[row-1][col-1]);
+//            if(col % 3 == 0)
+//                printf("|");
+//        }
+//        printf("\n");
+//        if(row % 3 == 0 && row != 9)
+//            printf("----------------------\n");
+//    }
+//}
 
 void printTable(int table[9][9]){
     for(int row = 1; row <= 9; row ++){
@@ -336,7 +260,7 @@ void printTable(int table[9][9]){
     }
 }
 
-bool SolveSudokuTable(int table[9][9], int type){
+bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular&, Answer&)){
     writeRules(type);
     FILE* fin;
     if(type == DIAGONAL){
@@ -351,7 +275,7 @@ bool SolveSudokuTable(int table[9][9], int type){
     ans = encodeTable(table);
 
     tableFormularAdd(formular, table);
-    DPLL(formular, ans);
+    pDPLL(formular, ans);
     if(ans.solved == false){
         destroyFormular(formular);
         destroyAnswer(ans);
@@ -373,108 +297,20 @@ bool SolveSudokuTable(int table[9][9], int type){
     return true;
 }
 
-bool las_vegas(int n, Sudoku& sudoku, int type){
-    Position pos;
-    for(int i = 0; i < n; i ++){
-        Position pos = randomLocation();
-        while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
-            pos = randomLocation();
-        int num = i % 9 + 1;
-        sudoku.SolutionTable[pos.x][pos.y] = num;
-        sudoku.numFilled ++;
-    }
-    if (SolveSudokuTable(sudoku.SolutionTable, type) == true)
-        return true;
-    return false;
-}
-
-Sudoku generateSolutionTable(int type){
-    Sudoku sudoku;
-    initSudoku(sudoku);
-    while (!las_vegas(11, sudoku, type)) {
-        printSudoku(sudoku);
-        initSudoku(sudoku);
-        printf("@@@@@@@@@@@@@@@@@@@@\n");
-    }
-    return sudoku;
-}
-
-
-
-Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
-    Sudoku sudoku;
-    initSudoku(sudoku);
-    Formular formular;
-    Answer ans;
-    ans.solved = false;
-
-    //生成数独规则
-    writeRules(type);
-    FILE* fin;
-    if(type == DIAGONAL){
-        fin = fopen("DiagonalSudokuRules.cnf", "r");
-    }
-    else{
-        fin = fopen("SudokuRules.cnf", "r");
-    }
-
-    printf("We are now generating the solution of sudoku...\n");
-
-    do{
-        int percent = sudoku.numFilled * 100 / 81;
-        printf("%d%%", percent);
-        for(int i = 0; i < percent/10; i ++)
-            printf("#");
-        printf("\r");
-        fflush(stdout);
-
-        ReadCNFFile(fin, formular);
-        if(81 - sudoku.numFilled > 11){
-            for(int i = 0; i < 11; i ++){
-                Position pos = randomLocation();
-                while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
-                    pos = randomLocation();
-                int num = rand() % 9 + 1;
-                sudoku.SolutionTable[pos.x][pos.y] = num;
-                sudoku.numFilled ++;
-            }
-        }
-        percent = sudoku.numFilled * 100 / 81;
-        printf("%d%%", percent);
-        for(int i = 0; i < percent/10; i ++)
-            printf("#");
-        printf("\r");
-        fflush(stdout);
-
-        ans = encodeSudokuTable(sudoku);
-        simplifyFormular(formular, ans);
-        DPLLSolu(formular, ans);
-        if(ans.solved == true){
-            for(int row = 1; row <= 9; row ++){
-                for(int col = 1; col <= 9; col ++){
-                    for(int num = 1; num <= 9; num ++){
-                        if(ans.state[getLiteral(col, row, num)] == POSITIVE && sudoku.SolutionTable[row-1][col-1] == EMPTY){
-                            sudoku.SolutionTable[row-1][col-1] = num, sudoku.numFilled ++;
-                        }
-                    }
-                }
-            }
-            if(sudoku.numFilled == 81){
-                break;
-            }
-        }
-        else{
-            initSudoku(sudoku);
-        }
-        destroyAnswer(ans);
-    }while(1);
-
-    destroyFormular(formular);
-    destroyAnswer(ans);
-    fclose(fin);
-
-    return sudoku;
-}
+//bool las_vegas(int n, Sudoku& sudoku, int type){
+//    Position pos;
+//    for(int i = 0; i < n; i ++){
+//        Position pos = randomLocation();
+//        while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
+//            pos = randomLocation();
+//        int num = i % 9 + 1;
+//        sudoku.SolutionTable[pos.x][pos.y] = num;
+//        sudoku.numFilled ++;
+//    }
+//    if (SolveSudokuTable(sudoku.SolutionTable, type) == true)
+//        return true;
+//    return false;
+//}
 
 void readSudokuTable(Sudoku& sudoku, int LineNum){
     FILE* fin = fopen("../Data/X-sudoku.txt", "r");
@@ -495,4 +331,95 @@ void readSudokuTable(Sudoku& sudoku, int LineNum){
         }
     }
     fclose(fin);
+}
+
+void swap(int& a, int& b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+void DigHole(Sudoku& sudoku, int type, void (*pDPLL)(Formular&, Answer&)){
+    FILE* fin;
+    if(type == DIAGONAL){
+        fin = fopen("DiagonalSudokuRules.cnf", "r");
+    }
+    else{
+        fin = fopen("SudokuRules.cnf", "r");
+    }
+    printf("Digging holes...\n");
+    printf("%d%%\r", 0);
+    int order[81];
+    for(int i = 0; i < 81; i ++)
+        order[i] = i;
+    for(int i = 80; i >= 0; i --){
+        int j = rand() % 81;
+        if(i != j)
+            swap(order[i], order[j]);
+    }
+    int h = 0;
+    while(true){
+        sudoku.ProblemTable[h/9][h%9] = EMPTY;
+        sudoku.numHoles ++;
+        Formular formular;
+        fseek(fin, 0, SEEK_SET);
+        ReadCNFFile(fin, formular);
+        Answer ans;
+        ans = encodeTable(sudoku.ProblemTable);
+        tableFormularAdd(formular, sudoku.ProblemTable);
+        pDPLL(formular, ans);
+        if(checkOneSudokuAnswer(ans) == false){
+            sudoku.ProblemTable[h/9][h%9] = sudoku.SolutionTable[h/9][h%9];
+            destroyFormular(formular);
+            destroyAnswer(ans);
+            break;
+        }
+        else if(sudoku.numHoles == MAX_HOLES){
+            break;
+        }
+
+        printf("%d%%|", (int)(sudoku.numHoles*100/64.0));
+        for(int i = 0; i < (int)(sudoku.numHoles*10/64); i ++)
+            printf("#");
+        for(int i = 0; i < 10 - (int)(sudoku.numHoles*10/64); i ++)
+            printf(" ");
+        printf("|");
+        printf("\r");
+        destroyFormular(formular);
+        destroyAnswer(ans);
+        h++;
+    }
+    printf("Generate the Sudoku problem successfully!\n");
+    fclose(fin);
+}
+
+void generateSudoku(int type, void (*pDPLL)(Formular&, Answer&)){
+    Sudoku sudoku;
+    initSudoku(sudoku);
+    if(type == DIAGONAL){
+        writeRules(DIAGONAL);
+    }
+    else{
+        writeRules(NORMAL);
+    }
+    int randNum = rand() % 20 + 1;
+    readSudokuTable(sudoku, randNum);
+
+    time_t start, end;
+    start = time(NULL);
+    printf("Generating the answer...\r");
+    SolveSudokuTable(sudoku.ProblemTable, type, pDPLL);
+    end = time(NULL);
+    printf("Answer generated! (process time: %f s)\n", (double)(end-start));
+
+    //获得答案
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            sudoku.SolutionTable[row-1][col-1] = sudoku.ProblemTable[row-1][col-1];
+        }
+    }
+
+    //挖洞法生成数独
+    DigHole(sudoku, type, pDPLL);
+    printTable(sudoku.ProblemTable);
 }

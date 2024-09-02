@@ -65,7 +65,7 @@ void writeAnswer(Answer ans, char* filepath){
     fclose(fout);
 }
 
-void CNFtest(char* filepath){
+void CNFtest(char* filepath, Answer (*DPLLSolution)(Formular&)){
     clock_t start, finish;
     Formular formular;
     formular.root = NULL;
@@ -150,6 +150,51 @@ void testAnswer(){
     }
 }
 
+void SAT_Solver_Menu(){
+    printf("+++++++++++++++++++++++++++++++\n");
+    printf("+         SAT-Solver          +\n");
+    printf("+                             +\n");
+    printf("+  1. Solve SAT problems      +\n");
+    printf("+  2. Check Answer            +\n");
+    printf("+  3. Exit                    +\n");
+    printf("+                             +\n");
+    printf("+++++++++++++++++++++++++++++++\n");
+    int choice;
+    printf("Please input your choice[1-3]:");
+    scanf("%d", &choice);
+    while(choice != 3){
+        switch(choice){
+            case 1:
+                printf("1.Normal Algorithm\n");
+                printf("2.Optimized Algorithm\n");
+                printf("Please input the algorithm\nyou want to use[1-2]:\n");
+                scanf("%d", &choice);
+                Answer (*pDPLLSolution)(Formular&);
+                if(choice == 1)
+                    pDPLLSolution = DPLLSolution;
+                else if(choice == 2)
+                    ;
+                else{
+                    printf("Invalid input!\n");
+                    break;
+                }
+                break;
+            case 2:
+                testAnswer();
+                break;
+            default:
+                printf("Invalid input!\n");
+                break;
+        }
+        printf("Please input your choice[1-3]:");
+        scanf("%d", &choice);
+    }
+}
+
+void Sudoku_Menu(){
+
+}
+
 int main() {
     test2();
     test3();
@@ -159,11 +204,14 @@ int main() {
     //printSudoku(generateSolutionTable(DIAGONAL));
     Sudoku s;
     initSudoku(s);
-    readSudokuTable(s, 1);
-    printTable(s.SolutionTable);
+//    readSudokuTable(s, 1);
+//    printTable(s.SolutionTable);
 //    SolveSudokuTable(s.ProblemTable, DIAGONAL);
-    generateSolutionTable(DIAGONAL);
-    printTable(s.SolutionTable);
+//    generateSolutionTable(DIAGONAL);
+//    printTable(s.SolutionTable);
+    generateSudoku(DIAGONAL, DPLL);
+    SolveSudokuTable(s.ProblemTable, DIAGONAL, DPLL);
+    printTable(s.ProblemTable);
     char* filepath = (char*)malloc(sizeof(char) * 100);
     for(int i = 0; i < 3; i ++){
         printf("Please input the path of the CNF file:\n");
@@ -174,5 +222,47 @@ int main() {
         testAnswer();
     }
     free(filepath);
+
+
+    printf("------------------------------\n");
+    printf("|                            |\n");
+    printf("|          WELCOME           |\n");
+    printf("|      author:Zhou Yujie     |\n");
+    printf("|  Created in September,2024 |\n");
+    printf("|                            |\n");
+    printf("------------------------------\n");
+    system("pause");
+    system("cls");
+
+    printf("------------------------------\n");
+    printf("|           MENU              |\n");
+    printf("|                             |\n");
+    printf("|  1. SAT solver              |\n");
+    printf("|  2. Sudoku                  |\n");
+    printf("|  3. Exit                    |\n");
+    printf("|                             |\n");
+    printf("------------------------------\n");
+    int choice;
+    printf("Please input your choice[1-3]:");
+    scanf("%d", &choice);
+    while(choice != 3){
+        switch(choice){
+            case 1:
+                SAT_Solver_Menu();
+                break;
+            case 2:
+                Sudoku_Menu();
+                break;
+            default:
+                printf("Invalid input!\n");
+                break;
+        }
+        printf("Please input your choice[1-3]:");
+        scanf("%d", &choice);
+    }
+
+
+
+
     return 0;
 }

@@ -13,6 +13,9 @@
 #define NORMAL 1    //普通数独
 #define DIAGONAL 2  //对角线数独
 
+#define HARD 5
+#define EASY 6
+
 typedef struct Hole{
     int x;
     int y;
@@ -38,16 +41,13 @@ void writeRules(int type);
 Hole randomLocation();
 void initSudoku(Sudoku& s);
 bool checkOneSudokuAnswer(Answer ans);
-void simplifyFormular(Formular& formular, Answer ans);
-Answer encodeSudokuTable(Sudoku sudoku);
-bool las_vegas(int n);
 void test2();
-Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type);
-void printSudoku(Sudoku sudoku);
-bool SolveSudokuTable(int table[9][9], int type);
-bool las_vegas(int n, Sudoku& sudoku, int type);
-Sudoku generateSolutionTable(int type);
+bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular& formular, Answer& ans));
 void readSudokuTable(Sudoku& sudoku, int LineNum);
 void printTable(int table[9][9]);
 void tableFormularAdd(Formular& formular, int table[9][9]);
+void swap(int& a, int& b);
+Answer encodeTable(int table[9][9]);
+void DigHole(Sudoku& sudoku, int type, void (*pDPLL)(Formular&, Answer&));
+void generateSudoku(int type, void (*pDPLL)(Formular&, Answer&));
 #endif //SUDOKU_X_SUDOKU_H
