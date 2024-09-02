@@ -160,6 +160,27 @@ Answer encodeSudokuTable(Sudoku sudoku){
     return ans;
 }
 
+Answer encodeTable(int table[9][9]){
+    Answer ans;
+    ans.state = (int*) malloc(sizeof(int)* 730);
+    for(int i = 1; i < 730; i ++)
+        ans.state[i] = UNKNOWN;
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            int num = table[row-1][col-1];
+            if(num == EMPTY)
+                continue;
+            ans.state[getLiteral(row, col, num)] = POSITIVE;
+            for(int i = 1; i <= 9; i ++){
+                if(i == num)
+                    continue;
+                ans.state[getLiteral(row, col, i)] = NEGATIVE;
+            }
+        }
+    }
+    return ans;
+}
+
 void initSudoku(Sudoku& s){
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
@@ -181,6 +202,22 @@ bool checkOneSudokuAnswer(Answer ans){
         }
     }
     return true;
+}
+
+void tableFormularAdd(Formular& formular, int table[9][9]){
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            if(table[row-1][col-1] != EMPTY){
+                int num = table[row-1][col-1];
+                Literal *head = (Literal*) malloc(sizeof(Literal));
+                head->data = getLiteral(row, col, num);
+                head->is_negative = false;
+                head->next = NULL;
+                Clause* clause = createClause(head);
+                addClause(formular, formular.root, clause);
+            }
+        }
+    }
 }
 
 void simplifyFormular(Formular& formular, Answer ans){
@@ -211,18 +248,24 @@ void simplifyFormular(Formular& formular, Answer ans){
         else{
             pLiteral pre = s->firstLiteral;
             bool next = false;
-            while(pre->next){
+            while(pre && pre->next){
                 if(pre->next->is_negative == false && ans.state[pre->next->data] == POSITIVE){
                     Clause* p = s;
                     s = s->nextClause;
                     destroyClause(formular, p);
                     next = true;
+                    while(s->firstLiteral == NULL)
+                        s = s->nextClause;
+                    pre = s->firstLiteral;
                 }
                 else if(pre->next->is_negative == true && ans.state[pre->next->data] == NEGATIVE){
                     Clause* p = s;
                     s = s->nextClause;
                     destroyClause(formular, p);
                     next = true;
+                    while(s->firstLiteral == NULL)
+                        s = s->nextClause;
+                    pre = s->firstLiteral;
                 }
                 else if(pre->next->is_negative == false && ans.state[pre->next->data] == NEGATIVE){
                     pLiteral q = pre->next;
@@ -247,7 +290,14 @@ void simplifyFormular(Formular& formular, Answer ans){
             return;
         }
     }
-
+    for(int row = 1; row <= 9; row  ++){
+        for(int col = 1; col <= 9; col ++){
+            for(int num = 1; num <= 9; num ++){
+                if(ans.state[getLiteral(row, col, num)] != EMPTY)
+                    formular.numBoolen --;
+            }
+        }
+    }
 }
 
 void test2(){
@@ -269,6 +319,86 @@ void printSudoku(Sudoku sudoku){
             printf("----------------------\n");
     }
 }
+
+void printTable(int table[9][9]){
+    for(int row = 1; row <= 9; row ++){
+        for(int col = 1; col <= 9; col ++){
+            if(table[row-1][col-1] == EMPTY)
+                printf("* ");
+            else
+                printf("%d ", table[row-1][col-1]);
+            if(col % 3 == 0)
+                printf("|");
+        }
+        printf("\n");
+        if(row % 3 == 0 && row != 9)
+            printf("----------------------\n");
+    }
+}
+
+bool SolveSudokuTable(int table[9][9], int type){
+    writeRules(type);
+    FILE* fin;
+    if(type == DIAGONAL){
+        fin = fopen("DiagonalSudokuRules.cnf", "r");
+    }
+    else{
+        fin = fopen("SudokuRules.cnf", "r");
+    }
+    Formular formular;
+    Answer ans;
+    ReadCNFFile(fin, formular);
+    ans = encodeTable(table);
+
+    tableFormularAdd(formular, table);
+    DPLL(formular, ans);
+    if(ans.solved == false){
+        destroyFormular(formular);
+        destroyAnswer(ans);
+        fclose(fin);
+        return false;
+    }
+    for(int rowi = 1; rowi <= 9; rowi ++){
+        for(int coli = 1; coli <= 9; coli ++){
+            for(int numi = 1; numi <= 9; numi ++){
+                if(ans.state[getLiteral(rowi, coli, numi)] == POSITIVE){
+                    table[rowi-1][coli-1] = numi;
+                }
+            }
+        }
+    }
+    destroyFormular(formular);
+    destroyAnswer(ans);
+    fclose(fin);
+    return true;
+}
+
+bool las_vegas(int n, Sudoku& sudoku, int type){
+    Position pos;
+    for(int i = 0; i < n; i ++){
+        Position pos = randomLocation();
+        while(sudoku.SolutionTable[pos.x][pos.y] != EMPTY)
+            pos = randomLocation();
+        int num = i % 9 + 1;
+        sudoku.SolutionTable[pos.x][pos.y] = num;
+        sudoku.numFilled ++;
+    }
+    if (SolveSudokuTable(sudoku.SolutionTable, type) == true)
+        return true;
+    return false;
+}
+
+Sudoku generateSolutionTable(int type){
+    Sudoku sudoku;
+    initSudoku(sudoku);
+    while (!las_vegas(11, sudoku, type)) {
+        printSudoku(sudoku);
+        initSudoku(sudoku);
+        printf("@@@@@@@@@@@@@@@@@@@@\n");
+    }
+    return sudoku;
+}
+
 
 
 Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
@@ -344,4 +474,25 @@ Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type){
     fclose(fin);
 
     return sudoku;
+}
+
+void readSudokuTable(Sudoku& sudoku, int LineNum){
+    FILE* fin = fopen("../Data/X-sudoku.txt", "r");
+    if(fin == NULL){
+        printf("File not found!\n");
+        return;
+    }
+    char line[90];
+    for(int i = 0; i < LineNum; i ++)
+        fgets(line, 85, fin);
+    for(int row = 0; row < 9; row ++){
+        for(int col = 0; col < 9; col ++){
+            char c = line[row*9+col];
+            if(c == '0')
+                sudoku.ProblemTable[row][col] = EMPTY;
+            else
+                sudoku.ProblemTable[row][col] = c - '0';
+        }
+    }
+    fclose(fin);
 }

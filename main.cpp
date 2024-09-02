@@ -156,7 +156,14 @@ int main() {
     printf("-----test-----\n");
     writeRules(NORMAL);
     writeRules(DIAGONAL);
-    printSudoku(sudokuSolution(DPLL, NORMAL));
+    //printSudoku(generateSolutionTable(DIAGONAL));
+    Sudoku s;
+    initSudoku(s);
+    readSudokuTable(s, 1);
+    printTable(s.SolutionTable);
+//    SolveSudokuTable(s.ProblemTable, DIAGONAL);
+    generateSolutionTable(DIAGONAL);
+    printTable(s.SolutionTable);
     char* filepath = (char*)malloc(sizeof(char) * 100);
     for(int i = 0; i < 3; i ++){
         printf("Please input the path of the CNF file:\n");

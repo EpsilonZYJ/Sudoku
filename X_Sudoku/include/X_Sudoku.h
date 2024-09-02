@@ -44,4 +44,10 @@ bool las_vegas(int n);
 void test2();
 Sudoku sudokuSolution(void (*DPLLSolu)(Formular&, Answer& ans), int type);
 void printSudoku(Sudoku sudoku);
+bool SolveSudokuTable(int table[9][9], int type);
+bool las_vegas(int n, Sudoku& sudoku, int type);
+Sudoku generateSolutionTable(int type);
+void readSudokuTable(Sudoku& sudoku, int LineNum);
+void printTable(int table[9][9]);
+void tableFormularAdd(Formular& formular, int table[9][9]);
 #endif //SUDOKU_X_SUDOKU_H
