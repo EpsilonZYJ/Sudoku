@@ -7,9 +7,6 @@
 
 #define UNKNOWN 0
 
-#define CONFLICT 1
-#define UNSATISFIABLE 2
-#define SATISFIABLE 3
 
 typedef struct LiteralNums{
     int LiteralName;

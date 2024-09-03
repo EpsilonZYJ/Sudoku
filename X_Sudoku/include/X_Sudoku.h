@@ -13,9 +13,6 @@
 #define NORMAL 1    //普通数独
 #define DIAGONAL 2  //对角线数独
 
-#define HARD 5
-#define EASY 6
-
 typedef struct Hole{
     int x;
     int y;
