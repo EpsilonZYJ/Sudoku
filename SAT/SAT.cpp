@@ -172,7 +172,7 @@ Formular copyFormular(Formular formular){
 }
 
 /*
- * DPLL算法
+ * DPLL算法核心
  */
 void DPLL(Formular &formular, Answer& ans){
     Clause* unitClause;
@@ -302,6 +302,9 @@ void DPLL(Formular &formular, Answer& ans){
     }
 }
 
+/*
+ * DPLL算法并进行求解
+ */
 Answer DPLLSolution(Formular& formular){
     Answer ans;
     ans.numBoolen = formular.numBoolen;
@@ -314,6 +317,9 @@ Answer DPLLSolution(Formular& formular){
     return ans;
 }
 
+/*
+ * 销毁公式
+ */
 void destroyFormular(Formular& formular){
     Clause* p = formular.root;
     while(p){
@@ -324,12 +330,18 @@ void destroyFormular(Formular& formular){
     formular.numBoolen = 0;
 }
 
+/*
+ * 销毁答案
+ */
 void destroyAnswer(Answer& ans){
     free(ans.state);
     ans.numBoolen = 0;
     ans.solved = false;
 }
 
+/*
+ * 判断答案是否满足公式
+ */
 bool answerSatisfied(Formular formular, Answer ans){
     bool flag = true;
     Clause *clause = formular.root;

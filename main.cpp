@@ -5,8 +5,10 @@
 #include "OptSAT/include/OptSAT.h"
 #include "X_Sudoku/include/X_Sudoku.h"
 
+#define abs(x) ((x) > 0 ? (x) : -(x))
+
 /*
- * 获取cnf的文件名
+ * 获取要保存的res的文件路径
  */
 char* getFileName(char* filepath){
     int len = strlen(filepath);
@@ -97,11 +99,11 @@ void CNFtest(char* filepath, Answer (*DPLLSolution)(Formular&)){
         printf("SAT\n");
         for (int i = 1; i <= ans.numBoolen; i++) {
             if (ans.state[i] == POSITIVE)
-                printf("%d ", i);
+                printf("%d\t", i);
             else if(ans.state[i] == NEGATIVE)
-                printf("-%d ", i);
+                printf("-%d\t", i);
             else
-                printf("%d ", i);
+                printf("%d\t", i);
             if(i % 10 == 0)
                 printf("\n");
         }
@@ -165,6 +167,85 @@ void testAnswer(){
 }
 
 /*
+ * 获取cnf文件名
+ */
+char* getCNFFileName(char* filepath){
+    int len = strlen(filepath);
+    char* ansName = (char *) malloc(sizeof(char)*len);
+    char* p = strstr(filepath, ".cnf");
+    for(;p >= filepath && *p != '/'; p --);
+    p ++;
+
+    int i;
+    for(i = 0; *(p+i) != '.'; i ++){
+        ansName[i] = *(p + i);
+    }
+    ansName[i] = '.';
+    ansName[i+1] = 'c';
+    ansName[i+2] = 'n';
+    ansName[i+3] = 'f';
+    ansName[i+4] = '\0';
+    return ansName;
+}
+
+/*
+ * 输出优化率
+ */
+void printOptRate(char* filepath){
+    FILE* fin = fopen(filepath, "r");
+    if(fin == NULL){
+        printf("File not found!\n");
+        return;
+    }
+    char* filename = getCNFFileName(filepath);
+    Formular formular;
+    formular.root = NULL;
+    formular.numBoolen = 0;
+    formular.numClause = 0;
+    clock_t start_origin, finish_origin, start_opt, finish_opt;
+
+    ReadCNFFile(fin, formular);
+    start_origin = clock();
+    DPLLSolution(formular);
+    finish_origin = clock();
+    double time_origin = (double)(finish_origin - start_origin) / CLOCKS_PER_SEC;
+
+    fseek(fin, 0, SEEK_SET);
+    ReadCNFFile(fin, formular);
+    start_opt = clock();
+    OptDPLLSolution(formular);
+    finish_opt = clock();
+    double time_opt = (double)(finish_opt - start_opt) / CLOCKS_PER_SEC;
+    fclose(fin);
+
+    printf("%20s\t\t", filename);
+    printf("%20.10f\t\t", time_origin);
+    printf("%20.10f\t\t", time_opt);
+    printf("%20.10f%%\n", (time_origin - time_opt)/time_origin*100);
+    free(filename);
+}
+
+void OptRate(){
+    char* filepath = (char*) malloc(sizeof(char) * 100);
+    printf("\n\n\nOPTIMIZED RATE\n");
+    printf("%20s\t\t%20s\t\t%20s\t\t%20s\n","FILE","Original algorithm","Optimized algorith","Optimized rate");
+
+    strcpy(filepath, "./Data/sat-20.cnf");
+    printOptRate(filepath);
+
+    strcpy(filepath, "./Data/unsat-5cnf-30.cnf");
+    printOptRate(filepath);
+
+    strcpy(filepath, "./Data/ais10.cnf");
+    printOptRate(filepath);
+
+    strcpy(filepath, "./Data/sud00009.cnf");
+    printOptRate(filepath);
+
+    free(filepath);
+}
+
+/*
  * 求解指定数独
  */
 void answerToGivenSudoku(Sudoku& sudoku, void (*pDPLL)(Formular&, Answer&), int line){
@@ -182,6 +263,53 @@ void answerToGivenSudoku(Sudoku& sudoku, void (*pDPLL)(Formular&, Answer&), int 
     printTable(sudoku.ProblemTable);
 }
 
+void PlaySudoku(){
+    Sudoku sudoku;
+    int row, col, num;
+    printf("Now you can play the diagonal Sudoku!\n");
+    printf("The negative number means the number you filled in.\n");
+    generateSudoku(sudoku, DIAGONAL, DPLL);
+    printf("Please input the row[1-9], column[1-9] and\n number[1-9] you want to fill in.\n");
+    printf("Input -1 -1 -1 to check the answer.\n");
+    printf("Row:");
+    scanf("%d", &row);
+    printf("Column:");
+    scanf("%d", &col);
+    printf("Number:");
+    scanf("%d", &num);
+    while(row != -1){
+        if(row < 1 || row > 9 || col < 1 || col > 9 || num < 1 || num > 9){
+            printf("Invalid input!\n");
+        }
+        else if(sudoku.ProblemTable[row-1][col-1] > 0){
+            printf("You cannot change the number!\n");
+        }
+        else{
+            sudoku.ProblemTable[row-1][col-1] = -num;
+            system("cls");
+            printTable(sudoku.ProblemTable);
+        }
+        printf("Input -1 -1 -1 to check the answer.\n");
+        printf("Row:");
+        scanf("%d", &row);
+        printf("Column:");
+        scanf("%d", &col);
+        printf("Number:");
+        scanf("%d", &num);
+    }
+    printf("Checking the answer...\n");
+    for(int i = 0; i < 9; i ++){
+        for(int j = 0; j < 9; j ++){
+            if(abs(sudoku.ProblemTable[i][j]) != sudoku.SolutionTable[i][j]){
+                printf("Wrong Answer!\n");
+                return;
+            }
+        }
+    }
+    printf("Right Answer!\n");
+    return;
+}
+
 /*
  * SAT-Solver菜单
  */
@@ -189,16 +317,17 @@ void SAT_Solver_Menu(){
     int choice = -1;
     char filepath[1000];
     system("cls");
-    while (choice != 3){
+    while (choice != 0){
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("+                    SAT-Solver                     +\n");
         printf("+                                                   +\n");
         printf("+             1. Solve SAT problems                 +\n");
         printf("+             2. Check Answer                       +\n");
-        printf("+             3. Exit                               +\n");
+        printf("+             3. Optimized Rate                     +\n");
+        printf("+             0. Exit                               +\n");
         printf("+                                                   +\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        printf("Please input your choice[1-3]:");
+        printf("Please input your choice[0-3]:");
         scanf("%d", &choice);
         switch(choice){
             case 1:
@@ -223,12 +352,15 @@ void SAT_Solver_Menu(){
                 testAnswer();
                 break;
             case 3:
+                OptRate();
+                break;
+            case 0:
                 break;
             default:
                 printf("Invalid input!\n");
                 break;
         }
-        if(choice != 3)
+        if(choice != 0)
             system("pause");
         system("cls");
     }
@@ -243,17 +375,18 @@ void Sudoku_Menu(){
     Sudoku sudoku;
     int line;
     void (*solver)(Formular&, Answer&);
-    while (choice != 4){
+    while (choice != 0){
         printf("*****************************************************\n");
         printf("*                     X-Sudoku                      *\n");
         printf("*                                                   *\n");
         printf("*      1. Generate a normal Sudoku                  *\n");
         printf("*      2. Generate a diagonal Sudoku                *\n");
         printf("*      3. The answer to the given Diagonal Sudoku   *\n");
-        printf("*      4. Exit                                      *\n");
+        printf("*      4. Play the Diagonal Sudoku                  *\n");
+        printf("*      0. Exit                                      *\n");
         printf("*                                                   *\n");
         printf("*****************************************************\n");
-        printf("Please input your choice[1-4]:");
+        printf("Please input your choice[0-3]:");
         scanf("%d", &choice);
         switch(choice){
             case 1:
@@ -314,12 +447,15 @@ void Sudoku_Menu(){
                 answerToGivenSudoku(sudoku, solver, line);
                 break;
             case 4:
+                PlaySudoku();
+                break;
+            case 0:
                 break;
             default:
                 printf("Invalid input!\n");
                 break;
         }
-        if(choice != 4)
+        if(choice != 0)
             system("pause");
         system("cls");
     }
@@ -374,16 +510,16 @@ int main() {
 
     int choice = -1;
 
-    while(choice != 3){
+    while(choice != 0){
         printf("-----------------------------------------------------\n");
         printf("|                      MENU                         |\n");
         printf("|                                                   |\n");
         printf("|             1. SAT solver                         |\n");
         printf("|             2. X-Sudoku                           |\n");
-        printf("|             3. Exit                               |\n");
+        printf("|             0. Exit                               |\n");
         printf("|                                                   |\n");
         printf("-----------------------------------------------------\n");
-        printf("Please input your choice[1-3]:");
+        printf("Please input your choice[0-2]:");
         scanf("%d", &choice);
         switch(choice){
             case 1:
@@ -392,7 +528,7 @@ int main() {
             case 2:
                 Sudoku_Menu();
                 break;
-            case 3:
+            case 0:
                 break;
             default:
                 printf("Invalid input!\n");

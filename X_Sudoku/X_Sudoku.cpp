@@ -206,9 +206,9 @@ void printTable(int table[9][9]){
     for(int row = 1; row <= 9; row ++){
         for(int col = 1; col <= 9; col ++){
             if(table[row-1][col-1] == EMPTY)
-                printf("* ");
+                printf("*  ");
             else
-                printf("%d ", table[row-1][col-1]);
+                printf("%-2d ", table[row-1][col-1]);
             if(col % 3 == 0)
                 printf("|");
         }

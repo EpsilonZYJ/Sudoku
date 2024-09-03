@@ -21,7 +21,6 @@ typedef struct LiteralNums{
 Answer OptDPLLSolution(Formular& formular);
 void OptDPLL(Formular& formular, Answer& ans);
 int chooseLiteral(Formular formular);
-void test3();
 Answer OptDPLLSolution(Formular& formular);
 void OptDPLL(Formular& formular, Answer& ans);
 

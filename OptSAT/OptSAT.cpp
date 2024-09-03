@@ -2,10 +2,9 @@
 
 int maxLiteralNum;
 
-void test3(){
-    printf("---OptSAT---\n");
-}
-
+/*
+ * 优化的DPLL算法进行SAT求解
+ */
 Answer OptDPLLSolution(Formular& formular){
     Answer ans;
     ans.numBoolen = formular.numBoolen;
@@ -19,11 +18,16 @@ Answer OptDPLLSolution(Formular& formular){
     return ans;
 }
 
+/*
+ * 衡量文字的重要性，用于选择文字
+ */
 inline int value(LiteralNums a){
     return a.Num;
 }
 
-
+/*
+ * 分支选择文字
+ */
 int chooseLiteral(Formular formular){
     LiteralNums *litsNums = (LiteralNums*) malloc(sizeof(LiteralNums) * (maxLiteralNum + 1));
     for(int i = 0; i <= maxLiteralNum; i ++){
@@ -55,6 +59,9 @@ int chooseLiteral(Formular formular){
     return i;
 }
 
+/*
+ * 优化的DPLL算法核心
+ */
 void OptDPLL(Formular &formular, Answer& ans){
     Clause* unitClause;
     maxLiteralNum = maxLiteralNum > formular.numBoolen ? maxLiteralNum : formular.numBoolen;
