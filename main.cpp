@@ -280,9 +280,15 @@ void PlaySudoku(){
     while(row != -1){
         if(row < 1 || row > 9 || col < 1 || col > 9 || num < 1 || num > 9){
             printf("Invalid input!\n");
+            system("pause");
+            system("cls");
+            printTable(sudoku.ProblemTable);
         }
         else if(sudoku.ProblemTable[row-1][col-1] > 0){
             printf("You cannot change the number!\n");
+            system("pause");
+            system("cls");
+            printTable(sudoku.ProblemTable);
         }
         else{
             sudoku.ProblemTable[row-1][col-1] = -num;
@@ -302,6 +308,8 @@ void PlaySudoku(){
         for(int j = 0; j < 9; j ++){
             if(abs(sudoku.ProblemTable[i][j]) != sudoku.SolutionTable[i][j]){
                 printf("Wrong Answer!\n");
+                printf("The correct answer is:\n");
+                printTable(sudoku.SolutionTable);
                 return;
             }
         }
