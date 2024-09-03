@@ -11,36 +11,18 @@
 #define UNSATISFIABLE 2
 #define SATISFIABLE 3
 
-typedef struct OptLiteral{
-    int data;
-    struct Literal* next;
-}OptLiteral;
+typedef struct LiteralNums{
+    int LiteralName;
+    int Num;
+    int PositiveNum;
+    int NegativeNum;
+}LiteralNums;
 
-typedef struct OptClause{
-    struct OptClause* nextClause;
-    Literal* firstLiteral;
-}OptClause;
-
-typedef struct OptFormular{
-    OptClause* root;
-    int numClause;
-    int numBoolen;
-}OptFormular;
-
-typedef struct LiteralWatch{
-    OptLiteral* positive;
-    OptLiteral* negative;
-};
-
-typedef struct OptAnswer{
-
-};
-
-int decide_next_branch();
-void deduce();
-int analyze_conflict();
-
-
+Answer OptDPLLSolution(Formular& formular);
+void OptDPLL(Formular& formular, Answer& ans);
+int chooseLiteral(Formular formular);
 void test3();
+Answer OptDPLLSolution(Formular& formular);
+void OptDPLL(Formular& formular, Answer& ans);
 
 #endif //SUDOKU_OPTSAT_H

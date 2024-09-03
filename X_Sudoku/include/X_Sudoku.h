@@ -41,13 +41,12 @@ void writeRules(int type);
 Hole randomLocation();
 void initSudoku(Sudoku& s);
 bool checkOneSudokuAnswer(Answer ans);
-void test2();
-bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular& formular, Answer& ans));
+bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular&, Answer&));
 void readSudokuTable(Sudoku& sudoku, int LineNum);
 void printTable(int table[9][9]);
 void tableFormularAdd(Formular& formular, int table[9][9]);
 void swap(int& a, int& b);
 Answer encodeTable(int table[9][9]);
 void DigHole(Sudoku& sudoku, int type, void (*pDPLL)(Formular&, Answer&));
-void generateSudoku(int type, void (*pDPLL)(Formular&, Answer&));
+void generateSudoku(Sudoku& sudoku, int type, void (*DPLL)(Formular&, Answer&));
 #endif //SUDOKU_X_SUDOKU_H
