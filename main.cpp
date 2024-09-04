@@ -4,6 +4,7 @@
 #include "SAT/include/SAT.h"
 #include "OptSAT/include/OptSAT.h"
 #include "X_Sudoku/include/X_Sudoku.h"
+#include "NewOptSAT/include/NewOptSAT.h"
 
 #define abs(x) ((x) > 0 ? (x) : -(x))
 
@@ -232,14 +233,19 @@ void OptRate(){
 
     strcpy(filepath, "./Data/sat-20.cnf");
     printOptRate(filepath);
-
     strcpy(filepath, "./Data/unsat-5cnf-30.cnf");
     printOptRate(filepath);
-
     strcpy(filepath, "./Data/ais10.cnf");
     printOptRate(filepath);
-
     strcpy(filepath, "./Data/sud00009.cnf");
+    printOptRate(filepath);
+    strcpy(filepath, "./Data/problem8-50.cnf");
+    printOptRate(filepath);
+    strcpy(filepath, "./Data/problem12-200.cnf");
+    printOptRate(filepath);
+    strcpy(filepath, "./Data/sud00001.cnf");
+    printOptRate(filepath);
+    strcpy(filepath, "./Data/sud00079.cnf");
     printOptRate(filepath);
 
     free(filepath);
@@ -271,13 +277,16 @@ void PlaySudoku(){
     generateSudoku(sudoku, DIAGONAL, DPLL);
     printf("Please input the row[1-9], column[1-9] and\n number[1-9] you want to fill in.\n");
     printf("Input -1 -1 -1 to check the answer.\n");
+    printf("Do you want to judge the answer when\n you are playing?(y/n)\n");
+    char choice;
+    while((choice = getchar()) != 'y' && choice != 'n');
     printf("Row:");
     scanf("%d", &row);
     printf("Column:");
     scanf("%d", &col);
     printf("Number:");
     scanf("%d", &num);
-    while(row != -1){
+    while(row != -1 && col != -1 && num != -1){
         if(row < 1 || row > 9 || col < 1 || col > 9 || num < 1 || num > 9){
             printf("Invalid input!\n");
             system("pause");
@@ -294,6 +303,13 @@ void PlaySudoku(){
             sudoku.ProblemTable[row-1][col-1] = -num;
             system("cls");
             printTable(sudoku.ProblemTable);
+        }
+
+        if(choice == 'y'){
+            if(sudoku.SolutionTable[row-1][col-1] != num)
+                printf("Wrong!\n");
+            else
+                printf("Right!\n");
         }
         printf("Input -1 -1 -1 to check the answer.\n");
         printf("Row:");
@@ -318,6 +334,32 @@ void PlaySudoku(){
     return;
 }
 
+void showCNFInput(Formular formular, char* filepath){
+    FILE* fin = fopen(filepath, "r");
+    if(fin == NULL){
+        printf("File not found!\n");
+        return;
+    }
+    ReadCNFFile(fin, formular);
+    fclose(fin);
+    printf("The CNF formular is:\n");
+    Clause* p = formular.root;
+    while(p){
+        Literal* q = p->firstLiteral;
+        while(q){
+            if(q->is_negative)
+                printf("-");
+            printf("%d\t", q->data);
+            q = q->next;
+        }
+        printf("\n");
+        p = p->nextClause;
+    }
+    printf("Boolen number: %d\n", formular.numBoolen);
+    printf("Clause number: %d\n", formular.numClause);
+}
+
+
 /*
  * SAT-Solver菜单
  */
@@ -332,10 +374,11 @@ void SAT_Solver_Menu(){
         printf("+             1. Solve SAT problems                 +\n");
         printf("+             2. Check Answer                       +\n");
         printf("+             3. Optimized Rate                     +\n");
+        printf("+             4. Show CNF formular                  +\n");
         printf("+             0. Exit                               +\n");
         printf("+                                                   +\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        printf("Please input your choice[0-3]:");
+        printf("Please input your choice[0-4]:");
         scanf("%d", &choice);
         switch(choice){
             case 1:
@@ -361,6 +404,15 @@ void SAT_Solver_Menu(){
                 break;
             case 3:
                 OptRate();
+                break;
+            case 4:
+                printf("Please input the path of the CNF file:\n");
+                scanf("%s", filepath);
+                Formular formular;
+                formular.root = NULL;
+                formular.numBoolen = 0;
+                formular.numClause = 0;
+                showCNFInput(formular, filepath);
                 break;
             case 0:
                 break;
@@ -497,7 +549,7 @@ int main() {
 //    }
 //    free(filepath);
 
-
+    //test();
     printf("----------------------------------------------------\n");
     printf("|                                                  |\n");
     printf("|                     WELCOME                      |\n");

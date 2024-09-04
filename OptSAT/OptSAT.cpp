@@ -22,13 +22,21 @@ Answer OptDPLLSolution(Formular& formular){
  * 衡量文字的重要性，用于选择文字
  */
 inline int value(LiteralNums a){
-    return a.Num;
+    return a.PositiveNum;
+}
+
+inline double valueMix(LiteralNums a){
+    return (a.PositiveNum - a.NegativeNum)*0.9 + a.Num*0.1;
 }
 
 /*
  * 分支选择文字
  */
-int chooseLiteral(Formular formular){
+int chooseLiteral(Formular formular, bool& is_negative){
+    if(formular.numClause/formular.numBoolen > 10){
+        is_negative = formular.root->firstLiteral->is_negative;
+        return formular.root->firstLiteral->data;
+    }
     LiteralNums *litsNums = (LiteralNums*) malloc(sizeof(LiteralNums) * (maxLiteralNum + 1));
     for(int i = 0; i <= maxLiteralNum; i ++){
         litsNums[i].LiteralName = i;
@@ -48,6 +56,7 @@ int chooseLiteral(Formular formular){
         s = s->nextClause;
     }
     int i = 0;
+    //double maxNum = 0;
     int maxNum = 0;
     for(int j = 1; j <= maxLiteralNum; j ++){
         if(value(litsNums[j]) > maxNum){
@@ -55,6 +64,7 @@ int chooseLiteral(Formular formular){
             i = j;
         }
     }
+    is_negative = litsNums[i].NegativeNum > litsNums[i].PositiveNum ? NEGATIVE : POSITIVE;
     free(litsNums);
     return i;
 }
@@ -159,8 +169,10 @@ void OptDPLL(Formular &formular, Answer& ans){
 
     //选取变元v
     pLiteral v = (pLiteral) malloc(sizeof(Literal));
-    v->data = chooseLiteral(formular);
-    v->is_negative = false;
+    bool v_is_negative;
+    int boolen_choose = chooseLiteral(formular, v_is_negative);
+    v->data = boolen_choose;
+    v->is_negative = v_is_negative;
     v->next = NULL;
     Clause* clause = createClause(v);
     addClause(formular, formular.root, clause);
@@ -171,8 +183,8 @@ void OptDPLL(Formular &formular, Answer& ans){
     else{
         destroyClause(formular, clause);
         v = (pLiteral) malloc(sizeof(Literal));
-        v->data = formular.root->firstLiteral->data;
-        v->is_negative = true;
+        v->data = boolen_choose;
+        v->is_negative = !v_is_negative;
         v->next = NULL;
         clause = createClause(v);
         addClause(formular, formular.root, clause);

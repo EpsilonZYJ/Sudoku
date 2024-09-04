@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(SAT)
 add_subdirectory(OptSAT)
 add_subdirectory(X_Sudoku)
+add_subdirectory(NewOptSAT)
 
 add_executable(Sudoku main.cpp)
-target_link_libraries(Sudoku SAT OptSAT X_Sudoku)
+target_link_libraries(Sudoku SAT OptSAT X_Sudoku NewOptSAT)
