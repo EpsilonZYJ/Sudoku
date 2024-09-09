@@ -259,7 +259,7 @@ bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular&, Answer
 void readSudokuTable(Sudoku& sudoku, int LineNum){
     FILE* fin = fopen("./Data/X-sudoku.txt", "r");  ///////////////////////////////////////////////////////////////////////
     if(fin == NULL){
-        printf("File not found!\n");
+        printf("File (Path: ./Data/X-sudoku.txt) not found!\n");
         return;
     }
     char line[90];
