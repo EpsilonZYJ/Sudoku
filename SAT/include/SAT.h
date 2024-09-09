@@ -29,6 +29,7 @@ typedef struct Literal{
 typedef struct Clause{
     struct Clause* nextClause;
     Literal* firstLiteral;
+    int numLiteral;
 }Clause, *pClause;
 
 typedef struct Formular{

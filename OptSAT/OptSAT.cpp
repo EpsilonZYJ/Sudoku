@@ -18,6 +18,20 @@ Answer OptDPLLSolution(Formular& formular){
     return ans;
 }
 
+//int chooseLiteral(Formular formular, bool& is_negative){
+//    int minNum = INT_MAX;
+//    Clause* s = formular.root;
+//    Clause* minClause = NULL;
+//    while(s != NULL){
+//        if(s->numLiteral < minNum) {
+//            minNum = s->numLiteral;
+//            minClause = s;
+//        }
+//        s = s->nextClause;
+//    }
+//    return minClause->firstLiteral->data;
+//}
+
 /*
  * 衡量文字的重要性，用于选择文字
  */
@@ -101,6 +115,7 @@ void OptDPLL(Formular &formular, Answer& ans){
                 while(s->firstLiteral && s->firstLiteral->data == data && s->firstLiteral->is_negative != is_negative){
                     pLiteral p = s->firstLiteral;
                     s->firstLiteral = p->next;
+                    s->numLiteral --;
                     free(p);
                 }
                 if(s->firstLiteral == NULL){
@@ -126,6 +141,7 @@ void OptDPLL(Formular &formular, Answer& ans){
                         else if(p->next->data == data && p->next->is_negative != is_negative){
                             pLiteral delLiteral = p->next;
                             p->next = delLiteral->next;
+                            s->numLiteral --;
                             free(delLiteral);
                         }
                         else
@@ -151,6 +167,7 @@ void OptDPLL(Formular &formular, Answer& ans){
                     else if(p->next->data == data && p->next->is_negative != is_negative){
                         pLiteral delLiteral = p->next;
                         p->next = delLiteral->next;
+                        s->numLiteral --;
                         free(delLiteral);
                     }
                     else
