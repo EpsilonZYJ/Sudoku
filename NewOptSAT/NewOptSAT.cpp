@@ -3,9 +3,23 @@
 #define ABS(x) ((x) > 0 ? (x) : -(x))
 
 int branchDepth;
+int levels[2*LITERAL_MAX_NUMS + 10];
+int searched[2*LITERAL_MAX_NUMS + 10];
+int solvedLiteralNum;
+BiWatchingList* WatchingList;
+LiteralNums* litsNums;
 
 void test(){
     printf("Hello World!\n");
+}
+
+void addToWatchingList(Clause* clause, int literal){
+    LiteralClause *pLCHead, *pLC;
+    pLCHead = literal > 0 ? WatchingList[ABS(literal)].positive : WatchingList[ABS(literal)].negative;
+    pLC = (LiteralClause*) malloc(sizeof(LiteralClause));
+    pLC->next = pLCHead->next;
+    pLC->clause = clause;
+    pLCHead->next = pLC;
 }
 
 void NewReadCNFFile(FILE* fin, Formular& formular){
@@ -37,6 +51,17 @@ void NewReadCNFFile(FILE* fin, Formular& formular){
     //读取布尔变元并进行存储
     pLiteral phead = (pLiteral) malloc(sizeof(Literal));
     litsNums = (LiteralNums*) malloc(sizeof(LiteralNums) * (literals + 1));
+    WatchingList = (BiWatchingList*) malloc(sizeof(BiWatchingList) * (literals+1));
+
+    for(int i = 0; i <= literals; i ++){
+        litsNums[i].LiteralName = i;
+        litsNums[i].Num = 0;
+        litsNums[i].PositiveNum = 0;
+        litsNums[i].NegativeNum = 0;
+        WatchingList[i].positive = NULL;
+        WatchingList[i].negative = NULL;
+    }
+
     phead->next = NULL;
     for(unsigned int i = 0; i < lines; i ++){
         int x;
@@ -64,6 +89,12 @@ void NewReadCNFFile(FILE* fin, Formular& formular){
             Clause* pC = formular.root;
             clause->nextClause = pC;
             formular.root = clause;
+        }
+
+        Literal* p = clause->firstLiteral;
+        while(p){
+            addToWatchingList(clause, p->data);
+            p = p->next;
         }
     }
 }
@@ -115,10 +146,16 @@ void backtrack(int blevel){
 
 }
 
-int NewOptDPLL(Answer ans, LiteralNums DecideLiteral[]){
+int NewOptDPLL(Answer& ans, LiteralNums DecideLiteral[]){
     int status, blevel;
+    blevel = 0;
     while(true){
         int branch = decide_next_branch(ans, DecideLiteral);
+        blevel ++;
+        ans.state[branch] = branch > 0 ? POSITIVE : NEGATIVE;
+        levels[ABS(branch)] = blevel;
+        solvedLiteralNum ++;
+        searched[ABS(branch)] ++;
         while(true){
             status = deduce();
             if(status == CONFLICT){
@@ -136,4 +173,13 @@ int NewOptDPLL(Answer ans, LiteralNums DecideLiteral[]){
             else break;
         }
     }
+}
+
+void NewDPLLSolution(){
+    branchDepth = 0;
+    for(int i = 0; i < 2*LITERAL_MAX_NUMS + 10; i ++){
+        levels[i] = 0;
+        searched[i] = 0;
+    }
+    solvedLiteralNum = 0;
 }
