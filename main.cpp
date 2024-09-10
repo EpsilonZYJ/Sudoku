@@ -4,7 +4,6 @@
 #include "SAT/include/SAT.h"
 #include "OptSAT/include/OptSAT.h"
 #include "X_Sudoku/include/X_Sudoku.h"
-#include "NewOptSAT/include/NewOptSAT.h"
 
 #define abs(x) ((x) > 0 ? (x) : -(x))
 
