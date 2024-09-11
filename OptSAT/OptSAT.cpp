@@ -1,3 +1,8 @@
+/*
+ * SAT.cpp
+ * Created by Yujie Zhou
+ * date: 2024-9-4
+ */
 #include "include/OptSAT.h"
 
 int maxLiteralNum;

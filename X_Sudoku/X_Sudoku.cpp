@@ -1,3 +1,8 @@
+/*
+ * SAT.cpp
+ * Created by Yujie Zhou
+ * date: 2024-9-2
+ */
 #include <stdio.h>
 #include <time.h>
 #include "include/X_Sudoku.h"
@@ -20,16 +25,6 @@ bool rulesExist(char* filepath){
 inline int getLiteral(int row, int col, int num){
     return (row-1)*81 + (col-1)*9 + num;
 }
-
-//PosNum decodeLiteral(int boolen){
-//    PosNum pos;
-//    pos.num = (boolen-1) % 9 + 1;
-//    boolen = (boolen-1)/9;
-//    pos.y = boolen % 9 + 1;
-//    boolen = boolen / 9;
-//    pos.x = boolen + 1;
-//    return pos;
-//}
 
 void writeRules(int type){
      char* s;
@@ -257,7 +252,7 @@ bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular&, Answer
 
 
 void readSudokuTable(Sudoku& sudoku, int LineNum){
-    FILE* fin = fopen("./Data/X-sudoku.txt", "r");  ///////////////////////////////////////////////////////////////////////
+    FILE* fin = fopen("./Data/X-sudoku.txt", "r");
     if(fin == NULL){
         printf("File (Path: ./Data/X-sudoku.txt) not found!\n");
         return;

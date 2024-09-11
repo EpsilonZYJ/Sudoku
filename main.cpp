@@ -1,3 +1,8 @@
+/*
+ * SAT.cpp
+ * Created by Yujie Zhou
+ * date: 2024-9-2
+ */
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -521,34 +526,6 @@ void Sudoku_Menu(){
 }
 
 int main() {
-//    test2();
-//    test3();
-//    printf("-----test-----\n");
-//    writeRules(NORMAL);
-//    writeRules(DIAGONAL);
-//    //printSudoku(generateSolutionTable(DIAGONAL));
-//    Sudoku s;
-//    initSudoku(s);
-////    readSudokuTable(s, 1);
-////    printTable(s.SolutionTable);
-////    SolveSudokuTable(s.ProblemTable, DIAGONAL);
-////    generateSolutionTable(DIAGONAL);
-////    printTable(s.SolutionTable);
-//    generateSudoku(DIAGONAL, DPLL);
-//    SolveSudokuTable(s.ProblemTable, DIAGONAL, DPLL);
-//    printTable(s.ProblemTable);
-//    char* filepath = (char*)malloc(sizeof(char) * 100);
-//    for(int i = 0; i < 3; i ++){
-//        printf("Please input the path of the CNF file:\n");
-//        scanf("%s", filepath);
-//        CNFtest(filepath);
-//    }
-//    for(int i = 0; i < 3; i ++){
-//        testAnswer();
-//    }
-//    free(filepath);
-
-    //test();
     printf("----------------------------------------------------\n");
     printf("|                                                  |\n");
     printf("|                     WELCOME                      |\n");
