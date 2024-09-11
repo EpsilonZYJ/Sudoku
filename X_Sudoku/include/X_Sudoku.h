@@ -34,7 +34,6 @@ typedef struct Sudoku{
     int SolutionTable[9][9];
     int numHoles;
     int numFilled;
-    Hole holes[MAX_HOLES];
 }Sudoku;
 
 bool rulesExist(char* file);

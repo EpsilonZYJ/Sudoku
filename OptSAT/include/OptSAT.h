@@ -23,7 +23,6 @@ typedef struct LiteralNums{
 Answer OptDPLLSolution(Formular& formular);
 void OptDPLL(Formular& formular, Answer& ans);
 int chooseLiteral(Formular formular, bool& is_negative);
-Answer OptDPLLSolution(Formular& formular);
 void OptDPLL(Formular& formular, Answer& ans);
 inline double valueMix(LiteralNums a);
 #endif //SUDOKU_OPTSAT_H
