@@ -8,7 +8,9 @@
 #include "include/X_Sudoku.h"
 #include "../SAT/include/SAT.h"
 
-
+/*
+ * 生成随机位置
+ */
 Hole randomLocation(){
     Hole h;
     srand(time(0));
@@ -17,15 +19,24 @@ Hole randomLocation(){
     return h;
 }
 
+/*
+ * 判断规则文件是否存在
+ */
 bool rulesExist(char* filepath){
     struct stat buffer;
     return (stat(filepath, &buffer) == 0);
 }
 
+/*
+ * 根据行列和数字生成/编码为对应文字
+ */
 inline int getLiteral(int row, int col, int num){
     return (row-1)*81 + (col-1)*9 + num;
 }
 
+/*
+ * 根据数独类型生成对应规则文件
+ */
 void writeRules(int type){
      char* s;
     if(type == NORMAL){
@@ -136,6 +147,9 @@ void writeRules(int type){
     fclose(fout);
 }
 
+/*
+ * 编码已有的数独表格
+ */
 Answer encodeTable(int table[9][9]){
     Answer ans;
     ans.state = (int*) malloc(sizeof(int)* 730);
@@ -157,6 +171,9 @@ Answer encodeTable(int table[9][9]){
     return ans;
 }
 
+/*
+ * 初始化数独表格
+ */
 void initSudoku(Sudoku& s){
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
@@ -168,6 +185,9 @@ void initSudoku(Sudoku& s){
     s.numHoles = 0;
 }
 
+/*
+ * 检查是否有唯一解
+ */
 bool checkOneSudokuAnswer(Answer ans){
     for(int row = 1; row <= 9; row ++){
         for(int col = 1; col <= 9; col ++){
@@ -180,6 +200,9 @@ bool checkOneSudokuAnswer(Answer ans){
     return true;
 }
 
+/*
+ * 将数独盘面已有数字加入到约束规则中
+ */
 void tableFormularAdd(Formular& formular, int table[9][9]){
     for(int row = 1; row <= 9; row ++){
         for(int col = 1; col <= 9; col ++){
@@ -196,7 +219,9 @@ void tableFormularAdd(Formular& formular, int table[9][9]){
     }
 }
 
-
+/*
+ * 打印数独
+ */
 void printTable(int table[9][9]){
     for(int row = 1; row <= 9; row ++){
         for(int col = 1; col <= 9; col ++){
@@ -213,6 +238,9 @@ void printTable(int table[9][9]){
     }
 }
 
+/*
+ * 解数独
+ */
 bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular&, Answer&)){
     writeRules(type);
     FILE* fin;
@@ -250,7 +278,9 @@ bool SolveSudokuTable(int table[9][9], int type, void (*pDPLL)(Formular&, Answer
     return true;
 }
 
-
+/*
+ * 从指定文件指定行中读取数独
+ */
 void readSudokuTable(Sudoku& sudoku, int LineNum){
     FILE* fin = fopen("./Data/X-sudoku.txt", "r");
     if(fin == NULL){
@@ -272,12 +302,18 @@ void readSudokuTable(Sudoku& sudoku, int LineNum){
     fclose(fin);
 }
 
+/*
+ * 交换两个整数
+ */
 void swap(int& a, int& b){
     int temp = a;
     a = b;
     b = temp;
 }
 
+/*
+ * 挖洞法生成数独
+ */
 void DigHole(Sudoku& sudoku, int type, void (*pDPLL)(Formular&, Answer&)){
     FILE* fin;
     if(type == DIAGONAL){
@@ -332,6 +368,9 @@ void DigHole(Sudoku& sudoku, int type, void (*pDPLL)(Formular&, Answer&)){
     fclose(fin);
 }
 
+/*
+ * 生成数独
+ */
 void generateSudoku(Sudoku& sudoku, int type, void (*pDPLL)(Formular&, Answer&)){
     initSudoku(sudoku);
     if(type == DIAGONAL){

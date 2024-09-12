@@ -361,6 +361,7 @@ void showCNFInput(Formular formular, char* filepath){
     }
     printf("Boolen number: %d\n", formular.numBoolen);
     printf("Clause number: %d\n", formular.numClause);
+    destroyFormular(formular);
 }
 
 

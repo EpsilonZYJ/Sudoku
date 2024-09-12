@@ -24,4 +24,5 @@ Answer OptDPLLSolution(Formular& formular);
 void OptDPLL(Formular& formular, Answer& ans);
 int chooseLiteral(Formular formular, bool& is_negative);
 inline double valueMix(LiteralNums a);
+inline int value(LiteralNums a);
 #endif //SUDOKU_OPTSAT_H
