@@ -25,19 +25,21 @@ typedef struct Literal{
     struct Literal* next;
 }Literal, *pLiteral;
 
-
+//子句的存储结构
 typedef struct Clause{
     struct Clause* nextClause;
     Literal* firstLiteral;
     int numLiteral;
 }Clause, *pClause;
 
+//公式的存储结构
 typedef struct Formular{
     pClause root;
     int numClause;
     int numBoolen;
 }Formular;
 
+//答案的存储结构
 typedef struct Answer{
     int numBoolen;
     bool solved;

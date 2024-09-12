@@ -18,17 +18,20 @@
 #define NORMAL 1    //普通数独
 #define DIAGONAL 2  //对角线数独
 
+//数独特定位置的存储结构
 typedef struct Hole{
     int x;
     int y;
 }Hole, Position;
 
+//可同时存储位置和数字的结构
 typedef struct PosNum{
     int x;
     int y;
     int num;
 }PosNum;
 
+//数独结构
 typedef struct Sudoku{
     int ProblemTable[9][9];
     int SolutionTable[9][9];

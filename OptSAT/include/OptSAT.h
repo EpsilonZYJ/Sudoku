@@ -12,7 +12,7 @@
 
 #define UNKNOWN 0
 
-
+//用于统计文字中相关指标的结构
 typedef struct LiteralNums{
     int LiteralName;
     int Num;
