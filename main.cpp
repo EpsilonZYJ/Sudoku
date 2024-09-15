@@ -451,7 +451,7 @@ void Sudoku_Menu(){
         printf("*      0. Exit                                      *\n");
         printf("*                                                   *\n");
         printf("*****************************************************\n");
-        printf("Please input your choice[0-3]:");
+        printf("Please input your choice[0-4]:");
         scanf("%d", &choice);
         switch(choice){
             case 1:
