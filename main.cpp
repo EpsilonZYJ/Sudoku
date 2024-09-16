@@ -1,5 +1,5 @@
 /*
- * SAT.cpp
+ * main.cpp
  * Created by Yujie Zhou
  * date: 2024-9-2
  */

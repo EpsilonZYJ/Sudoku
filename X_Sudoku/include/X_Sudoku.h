@@ -1,5 +1,5 @@
 /*
- * SAT.cpp
+ * X_Sudoku.h
  * Created by Yujie Zhou
  * date: 2024-9-2
  */
