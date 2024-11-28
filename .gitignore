@@ -1,7 +1,8 @@
-.idea
+# .idea
 cmake-build-debug
 build
 Data
 Answer
 *.exe
 *.cnf
+.vscode
