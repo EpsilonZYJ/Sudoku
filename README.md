@@ -4,10 +4,15 @@
 
 **记得修改CMakeLists中编译器的地址**
 
+*注：本人此项目采用的generator为Visual Studio 2019, 若使用GNU make等需要在makefile修改相应的路径*
+
 在该目录下使用powershell运行以下命令即可构建并运行
 
 ```shell
 sh
+# 若没有单独复制并配置过make.exe, 可以采用
+# mingw32-make build
+# 来进行构建，以下其它命令同理，使用mingw32-make替换make
 make build	#构建
 make run	#运行
 ```
